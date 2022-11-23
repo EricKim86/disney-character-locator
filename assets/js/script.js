@@ -11,3 +11,12 @@ function getDisneyApi() {
     })
 }
 
+function getReviewApi() {
+    fetch(reviewApi)
+    .then(function(response) {
+        console.log(response);
+        response.json().then(function (data) {
+            console.log(data);
+        })
+    })
+}
