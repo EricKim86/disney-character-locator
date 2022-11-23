@@ -4,12 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     <title>Document</title>
 </head>
 <body>
-    
+    <nav class="navbar-custom">
+        <img src="./assets/images/disney-logo.png" alt="Disney Character Locator logo" width="348px" height="80px">
+    </nav> 
+<!-- Main section below the navbar -->
+<section class="columns is-gapless">
+
+<!-- search bar and search history results -->
+
+    <section class="search section is-large">
+        <input class="input" type="text" placeholder="Please enter name">
+        <br>
+        <button class="button is-primary">Search</button>
+        <hr>
+        <p>Search History</p>
+            <u>
+                <li>Search Results #1</li>
+                <li>Search Results #2</li>
+                <li>Search Results #3</li>
+            </u>
+    </section>
+
+
+<!-- character display and movie display -->
+    <section class="results-section section columns is-gapless is-multiline">
+        <section class ="character-select">
+                    <article class="notification notification-custom is-primary">
+                    <p class="title">Characte Selection</p>
+                    <p class="subtitle">Top tile</p>
+                    </article>
+        </section>
+        <section class ="movie-select">
+                <article class="notification is-primary">
+                <p class="title">Movie selection</p>
+                    <p id="character-films"></p>
+                </article>
+        </section>
+    </section>
+
+</section>
 
     <script src="./assets/js/script.js"></script>
 </body>
-</html>
+</html> 

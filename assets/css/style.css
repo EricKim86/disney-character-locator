@@ -1,0 +1,44 @@
+.navbar-custom {
+    display: flex;
+    align-items: center;
+    background-color: #31C3E1;
+    height: 60px;
+    width: 100%;
+    padding: 0 0 0 10px;
+}
+
+.search {
+    background-color: #7D82B8;
+    padding: 20px !important;
+    height: 100vh;
+    width: 25vw;
+}
+
+.button {
+    margin: 5px;
+}
+
+.character-display {
+    width: 100vw;
+
+}
+
+.results-section {
+    width: 100vw;
+    padding: 20px !important;
+}
+
+.character-select {
+    height: 20vh;
+    width: 80vw;
+}
+
+.movie-select {
+    height: 80vh;
+    width: 80vw;
+}
+
+.notification-custom {
+    background-color: black !important;
+    color: white !important;
+}
