@@ -1,6 +1,20 @@
+body {
+    font-family: 'Noto Sans Mende Kikakui', sans-serif !important;
+}
+
 ul {
     list-style-type: none;
     text-align: center;
+}
+
+p {
+    color: white;
+}
+
+.button-color {
+    background-color: #31C3E1 !important;
+    width: 20vh;
+    margin: 10px 0 !important;
 }
 
 .navbar-custom {
@@ -17,6 +31,7 @@ ul {
     padding: 20px !important;
     height: 100vh;
     width: 25vw;
+    text-align: center;
 }
 
 .button {
@@ -39,7 +54,8 @@ ul {
 }
 
 .movie-select {
-    height: 80vh;
+    background-color: #31C3E1 !important;
+    height: 75vh;
     width: 80vw;
 }
 
