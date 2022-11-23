@@ -20,3 +20,6 @@ function getReviewApi() {
         })
     })
 }
+
+getDisneyApi();
+getReviewApi();
