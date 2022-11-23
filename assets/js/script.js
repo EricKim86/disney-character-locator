@@ -6,6 +6,7 @@ var movielist = [];
 var textInput = document.querySelector('.text-input');
 
 function evaluateInput(event) {
+    characterFilmSection.textContent = '';
     event.preventDefault()
 
     var characterInput = document.getElementById('search-text');
@@ -32,6 +33,7 @@ function evaluateInput(event) {
             characterFilmSection.append(characterFilm);
          }
         })
+        textInput.value = '';
 }
 
 function getReviewApi() {
