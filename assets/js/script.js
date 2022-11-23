@@ -4,7 +4,7 @@ var characterFilmSection = document.getElementById("character-films")
 
 
 function getDisneyApi() {
-    fetch(disneyAPI)
+    fetch(disneyApi)
     .then(function (response) {
         return response.json();
     })
