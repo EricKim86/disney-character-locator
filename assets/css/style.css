@@ -43,6 +43,7 @@ p {
 
 .button {
     margin: 5px;
+    width: 100%;
     overflow: hidden;
     text-overflow: clip;
 }
@@ -83,11 +84,11 @@ p {
 .movie-select {
     background-color: #31C3E1 !important;
     height: 75vh;
-    width: 35%;
+    width: 55%;
 }
 
 .movie-info {
-    width: 64%;
+    width: 44%;
     height: 75vh;
     margin: 0 0 0 10px;
     background-color: #E490A0 !important;
