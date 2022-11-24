@@ -17,36 +17,50 @@
         <img src="./assets/images/disney-logo.png" alt="Disney Character Locator logo" width="348px" height="80px">
     </nav> 
 <!-- Main section below the navbar -->
-<section class="columns is-gapless">
+<section class="main-container columns is-gapless">
 
 <!-- search bar and search history results -->
-
-    <section class="search section is-large">
+    <section class="container is-one-third search section is-large">
         <form class="text-input">
         <input class="input" id="search-text" type="text" placeholder="Please enter name">
         <br>
-        <button class="button is-primary button-color">Search</button>
+        <button class="button is-primary button-color-blue">Search</button>
         </form>
         <hr>
         <p>Search History</p>
             <ul>
-                <li><button class="button is-primary button-color">Results #1</button></li>
-                <li><button class="button is-primary button-color">Results #1</button></li>
-                <li><button class="button is-primary button-color">Results #1</button></li>
+                <li><button class="button is-primary button-color-blue">Results #1</button></li>
+                <li><button class="button is-primary button-color-blue">Results #2</button></li>
+                <li><button class="button is-primary button-color-blue">Results #3</button></li>
             </ul>
     </section>
 
-<!-- character display and movie display -->
-    <section class="results-section section columns is-gapless is-multiline">
-        <article class="character-select notification notification-custom is-primary">
+<!-- character display -->
+    <section class="container is-two-thirds results-section columns is-gapless is-multiline">
+        <article class="character-select notification notification-custom is-primary mb-2">
             <p class="title">Character Selection</p>
         </article>
+
+<!--movies populate here based on character selection -->
+    <section class="movie-container columns is-gapless is-multiline">
         <article class="movie-select notification is-primary">
             <p class="title">Movie selection</p>
             <p id="character-films"></p>
+            <ul>
+                <li><button class="button is-primary button-color-purple">Movie Result #1</button></li>
+                <li><button class="button is-primary button-color-purple">Movie Result #2</button></li>
+                <li><button class="button is-primary button-color-purple">Movie Result #3</button></li>
+            </ul>
+        </article>
+<!-- movie data is dispayed here -->
+        <article class="movie-info notification is-primary">
+            <p class="title">The Clouds Strike Back</p>
+            <img src="./assets/images/placeholder.jpg" height="250px" width="400px">
+            <p class="film-stat"> 2022 | PG | 86 min | Family</p>
+            <p>SCORE: 8.6</p>
         </article>
     </section>
-
+</section>
 </section>
 
     <script src="./assets/js/script.js"></script>

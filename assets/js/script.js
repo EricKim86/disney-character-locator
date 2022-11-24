@@ -6,13 +6,13 @@ var movielist = [];
 var textInput = document.querySelector('.text-input');
 
 function evaluateInput(event) {
+    characterFilmSection.textContent = "";
     event.preventDefault()
 
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-
-    console.log(characterVal);
+   
 //fetch disney api
     fetch(characterFetch)
     .then(function (response) {
@@ -30,6 +30,7 @@ function evaluateInput(event) {
 
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
+            console.log(characterFilm);
          }
         })
 }

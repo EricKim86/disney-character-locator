@@ -9,11 +9,25 @@ ul {
 
 p {
     color: white;
+    font-size: 20px;
 }
 
-.button-color {
+.film-stat {
+    font-size: 16px;
+}
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.button-color-blue {
     background-color: #31C3E1 !important;
-    width: 20vh;
+    width: 90%;
+    margin: 10px 0 !important;
+}
+
+.button-color-purple {  
+    background-color: #7D82B8 !important;
+    width: 90%;
     margin: 10px 0 !important;
 }
 
@@ -30,7 +44,7 @@ p {
     background-color: #7D82B8;
     padding: 20px !important;
     height: 100vh;
-    width: 25vw;
+    width: 20%;
     text-align: center;
 }
 
@@ -39,24 +53,35 @@ p {
 }
 
 .character-display {
-    width: 100vw;
+    width: 100%;
 
 }
 
 .results-section {
-    width: 100vw;
-    padding: 20px !important;
+    width: 80%;
+    padding: 10px !important;
 }
 
 .character-select {
     height: 20vh;
-    width: 80vw;
+    width: 100%;
 }
 
+.movie-container {
+    width: 100%;
+}
 .movie-select {
     background-color: #31C3E1 !important;
     height: 75vh;
-    width: 80vw;
+    width: 35%;
+}
+
+.movie-info {
+    width: 64%;
+    height: 75vh;
+    margin: 0 0 0 10px;
+    background-color: #E490A0 !important;
+    padding: 20px !important;
 }
 
 .notification-custom {
