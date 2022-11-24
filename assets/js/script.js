@@ -36,6 +36,7 @@ function evaluateInput(event) {
 
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
+            textInput.reset()
          }
         })
 }
@@ -73,7 +74,6 @@ var movieInfoPull = document.createElement("p");
     movieInfoPull.textContent = data.overview
     movieInfoPull.setAttribute("style", "font-size: 14px")
     movieInfo.append(movieInfoPull);
-
         })
     })
 }
