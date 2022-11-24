@@ -27,11 +27,12 @@ function evaluateInput(event) {
 // loop based on # of films for selected character
          for (var i = 0; i < data.data[0].films.length; i++) {
 
-//create element and populate film(s)
+//create element and populate film(s)        
             var characterFilm = document.createElement("button");
             characterFilm.classList.add("button")
             characterFilm.classList.add("is-primary")
-            characterFilm.classList.add("button-color-purple")
+            characterFilm.classList.add("button-size-large")
+            characterFilm.classList.add("button-color-purple") 
             characterFilm.textContent = data.data[0].films[i]
 
 //append text to character selection section in index
