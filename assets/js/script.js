@@ -1,6 +1,7 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
 var reviewApi = 'https://api.themoviedb.org/3/movie/550?api_key=091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
+var characterSelection = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
 var textInput = document.querySelector('.text-input');
@@ -64,6 +65,16 @@ function characterDisplay() {
          var characterFilm = document.createElement("h3");
         characterFilm.textContent = data.data[0].films[i]
     }
+        console.log(characterVal);
+        var characterName = document.createElement("h2");
+        characterName.textContent = characterVal;
+        characterSelection.append(characterName);
+
+        var numFilms = document.createElement("li");
+        numFilms.textContent = 'Number of films appeared in:' + i;
+        characterSelection.append(numFilms);
+
+        console.log(i);
     })
     
     //use input from disney function to retrieve image from disney api
