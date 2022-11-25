@@ -80,24 +80,32 @@ var movieInfoPull = document.createElement("p");
     })
 }
 
-// introduction modal with instructions
+// introduction modal with instructions on how to use the app
 document.addEventListener('DOMContentLoaded', () => {
     
     function openModal($el) {
-      $el.classList.add('is-active');
+      $el.classList.add("is-active");
     }
   
     function closeModal($el) {
-      $el.classList.remove('is-active');
+      $el.classList.remove("is-active");
     }
   
     function closeAllModals() {
-      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+      (document.querySelectorAll(".modal") || []).forEach(($modal) => {
         closeModal($modal);
       });
     }
-  
-    document.addEventListener('keydown', (event) => {
+
+  (document.querySelectorAll(".modal") || []).forEach(($close) => {
+    const $target = $close.closest('.modal');
+
+    $close.addEventListener('click', () => {
+      closeModal($target);
+    });
+  });
+
+    document.addEventListener("keydown", (event) => {
       const e = event || window.event;
   
       if (e.keyCode === 27) { // Escape key
