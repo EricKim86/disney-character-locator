@@ -1,7 +1,8 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
 var reviewApi = 'https://api.themoviedb.org/3/movie/550?api_key=091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
-var characterSelection = document.querySelector('.character-select');
+var characterSelection = document.querySelector('#character-select');
+var characterSelectionSub = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
 var textInput = document.querySelector('.text-input');
@@ -51,6 +52,7 @@ function getReviewApi() {
 //grabs number of films, first appearance and name
 //appends all of the above
 function characterDisplay() {
+    characterSelection.textContent = '';
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
@@ -69,7 +71,7 @@ function characterDisplay() {
         console.log(characterVal);
 
         //apends the character input to the character selection
-        var characterName = document.createElement('h3');
+        var characterName = document.createElement('h1');
         characterName.textContent = characterVal;
         characterSelection.append(characterName);
 
@@ -77,16 +79,20 @@ function characterDisplay() {
         //in the for loop i is the equivalent to number of films
         var numFilms = document.createElement('li');
         numFilms.textContent = 'Number of films appeared in: ' + i;
-        characterSelection.append(numFilms);
+        characterSelectionSub.append(numFilms);
 
 
         //order date of film by descending - mostly likely through a search parameter property
         //pull first item in data index
         //list the data from that film
         //apend data of the film to list
+
+        getReviewApi();
+        
+        console.log(data.data[0].data_);
         var firstFilm = document.createElement('li');
         firstFilm.textContent = 
-        characterSelection.append(firstFilm);
+        characterSelectionSub.append(firstFilm);
 
         //retreive image from first data index
         //apend image in an image tag
