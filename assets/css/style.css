@@ -133,6 +133,26 @@ button:active {
     padding: 20px !important;
 }
 
+.character li {
+    align-content: right !important;
+    list-style-type: none !important; 
+}
+
+.character-select img {
+    align-items: right !important;
+    width: auto !important;
+    height: 100% !important;
+}
+
+.character p {
+    flex: 0 0 100%;
+}
+
+.character-select article {
+    display: inline-flex !important;
+    flex-flow: row wrap;
+}
+
 /* media queries */
 @media screen and (max-width:768px) {
     .search,

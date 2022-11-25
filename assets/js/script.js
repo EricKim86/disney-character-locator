@@ -1,5 +1,6 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
 var reviewApi = 'https://api.themoviedb.org/3/movie/109445?api_key=091a5c8f390a977d67ab12f38ec85102';
+var apiKey = '091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
 var characterSelection = document.getElementById("character-select")
@@ -7,8 +8,11 @@ var characterSelectionSub = document.querySelector(".character-select")
 var clearSearch = document.querySelector(".clear-search")
 var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
+var disneyCharacterImage = 'https://static.wikia.nocookie.net/disney/images/2/27/Goofy_transparent.png';
 var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
+var characterSelection = document.querySelector('#character-select');
+var characterSelectionSub = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
 
@@ -84,6 +88,7 @@ function clearSearchHistory() {
 
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
+    characterFilmSection.textContent = '';
     event.preventDefault()
 
     var characterInput = document.getElementById('search-text');
@@ -115,6 +120,7 @@ function evaluateInput(event) {
             textInput.reset()
          }
         })
+        textInput.value = '';
 }
 
 function getReviewApi() {
@@ -158,11 +164,10 @@ var movieInfoPull = document.createElement("p");
 //grabs number of films, first appearance and name
 //appends all of the above
 function characterDisplay() {
-    characterSelection.textContent = "";
+    characterSelection.textContent = '';
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-
     fetch(characterFetch)
     .then(function (response) {
         return response.json();
@@ -176,7 +181,7 @@ function characterDisplay() {
         }
 
         //apends the character input to the character selection
-        var characterName = document.createElement('h3');
+        var characterName = document.createElement('h1');
         characterName.textContent = characterVal;
         characterSelection.append(characterName);
 
@@ -184,20 +189,41 @@ function characterDisplay() {
         //in the for loop i is the equivalent to number of films
         var numFilms = document.createElement('li');
         numFilms.textContent = 'Number of films appeared in: ' + i;
-        characterSelection.append(numFilms);
+        characterSelectionSub.append(numFilms);
+
+        var disneyFilmTitle = data.data.films;
+
+        var disneyImg = document.createElement('img');
+        disneyImg.setAttribute('src', disneyCharacterImage);
+        characterSelectionSub.append(disneyImg);
 
 
-        //order date of film by descending - mostly likely through a search parameter property
-        //pull first item in data index
-        //list the data from that film
-        //apend data of the film to list
-        var firstFilm = document.createElement('li');
-        firstFilm.textContent = 
-        characterSelection.append(firstFilm);
+        var reviewApiTitle = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey +'&query=' + characterVal;
+        fetch(reviewApiTitle)
+        .then(function(response) {
+            console.log(response);
+            response.json().then(function (data) {
+                console.log(data);
+        // fetch movie title and append to index
+                var movieReviewTitle = data.title;
+                console.log(movieReviewTitle);
+                console.log(disneyFilmTitle);
+                console.log(data);        
+                if (movieReviewTitle == disneyFilmTitle ) {
+                    var releaseDate = data.release_date;
+                    console.log(releaseDate);
+                    var firstFilm = document.createElement('li');
+                    firstFilm.textContent = releaseDate;
+                    characterSelectionSub.append(firstFilm);
+                } 
+        
+        
+            })
+        
+        })
+        
+})
 
-        //retreive image from first data index
-        //apend image in an image tag
-    })
 }
 
 
