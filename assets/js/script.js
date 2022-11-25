@@ -218,17 +218,36 @@ function characterDisplay() {
         //pull first item in data index
         //list the data from that film
         //apend data of the film to list
+        //OR. retrieve title from disneyapi
+        //retrieve tittle from reviewapi
+        //if disneytitle === reviewtitle
+        //return list of releasedates from reviewapi
+})
 
-        getReviewApi();
+fetch(reviewApi)
+.then(function(response) {
+    console.log(response);
+    response.json().then(function (data) {
+        console.log(data);
+// fetch movie title and append to index
+        var movieTitle = document.createElement("p");
         
-        console.log(data.data[0].data_);
-        var firstFilm = document.createElement('li');
-        firstFilm.textContent = 
-        characterSelectionSub.append(firstFilm);
-
-        //retreive image from first data index
-        //apend image in an image tag
+        if(movieTitle == characterVal) {
+            var realeaseDate = data.realease_date;
+            return realeaseDate;
+        }
     })
+
+getReviewApi();
+var releaseDate;
+console.log(data.data[0].data_);
+var firstFilm = document.createElement('li');
+firstFilm.textContent(releaseDate);
+characterSelectionSub.append(firstFilm);
+
+//retreive image from first data index
+//apend image in an image tag
+})
 }
 
 textInput.addEventListener('submit', evaluateInput);
