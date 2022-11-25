@@ -79,6 +79,33 @@ var movieInfoPull = document.createElement("p");
         })
     })
 }
+
+// introduction modal with instructions
+document.addEventListener('DOMContentLoaded', () => {
+    
+    function openModal($el) {
+      $el.classList.add('is-active');
+    }
+  
+    function closeModal($el) {
+      $el.classList.remove('is-active');
+    }
+  
+    function closeAllModals() {
+      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+        closeModal($modal);
+      });
+    }
+  
+    document.addEventListener('keydown', (event) => {
+      const e = event || window.event;
+  
+      if (e.keyCode === 27) { // Escape key
+        closeAllModals();
+      }
+    });
+  });
+
 textInput.addEventListener('submit', evaluateInput);
 
 getReviewApi();
