@@ -167,6 +167,8 @@ function evaluateInput(event) {
         })
         .then(function (data) {
             console.log(data);
+
+
             // loop based on # of films for selected character
             for (var i = 0; i < data.data[0].films.length; i++) {
 //create element and populate film(s)       
@@ -196,7 +198,6 @@ function characterDisplay() {
     })
     .then(function (data) {
         if(characterVal == ""){
-            console.log("okay7");
             characterImage.innerHTML = ""
             return
         }
