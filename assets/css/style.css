@@ -30,6 +30,7 @@ p {
     background-color: pink;
     border: white;
     border-radius: 45%;
+    text-transform: capitalize;
 }
 
 button:hover {

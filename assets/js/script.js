@@ -10,6 +10,9 @@ var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
 // addign data to local storage
 function saveToStorage(value) {
     var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
+    if (value == ""){
+        return
+    }
     if (searchHistoryArray.includes(value)) {
         return
     }
@@ -22,7 +25,7 @@ function renderStorage() {
     if (searchHistoryArray.length === 0) {
         return
     }
-    // searchHistoryBtnEl.innerHTML = ""
+    searchHistoryBtnEl.innerHTML = ""
     console.log("Rendering storage")
     for (let i = 0; i < searchHistoryArray.length; i++) {
         console.log(searchHistoryArray[i])
@@ -68,7 +71,7 @@ function evaluateInput(event) {
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
     saveToStorage(characterVal)
-
+    renderStorage()
     console.log(characterVal);
     //fetch disney api
     fetch(characterFetch)
@@ -103,5 +106,5 @@ function getReviewApi() {
 }
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', renderStorage);
-
+renderStorage()
 getReviewApi();
