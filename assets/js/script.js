@@ -21,14 +21,14 @@ function evaluateInput(event) {
    
 //fetch disney api
     fetch(characterFetch)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
 
-// loop based on # of films for selected character
-         for (var i = 0; i < data.data[0].films.length; i++) {
+            // loop based on # of films for selected character
+            for (var i = 0; i < data.data[0].films.length; i++) {
 
 //create element and populate film(s)        
             var characterFilm = document.createElement("button");
@@ -78,9 +78,10 @@ var movieInfoPull = document.createElement("p");
     movieInfoPull.textContent = data.overview
     movieInfoPull.setAttribute("style", "font-size: 14px")
     movieInfo.append(movieInfoPull);
-        })
-    })
+  })
+})
 }
+
 
 // introduction modal with instructions on how to use the app
 document.addEventListener('DOMContentLoaded', () => {
@@ -117,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 textInput.addEventListener('submit', evaluateInput);
+textInput.addEventListener('submit', renderStorage);
 
 //the function that will fetch data to show in display section
 //grabs number of films, first appearance and name
