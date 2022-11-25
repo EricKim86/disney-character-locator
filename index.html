@@ -24,16 +24,21 @@
         <br>
         <button class="button is-primary button-color-blue">Search</button>
         </form>
+        <section class="hide">
         <hr>
         <p>Search History</p>
         <button class="clear-search button is-primary button-color-blue">Clear Search</button>
         <section id="search-history-buttons"></section>
+        </section>
     </section>
 <!-- character display -->
     <section class="character container is-two-thirds results-section columns is-gapless is-multiline">
-        <article class="character-select notification notification-custom is-primary mb-2">
-            <p id="character-select" class="title character-selection">Character Selection</p>
+        <article class="character-image notification notification-custom is-primary mb-2">
+            <p class="title">Character Image</p>
         </article>
+    <article class="character-select notification notification-custom is-primary mb-2">
+        <p class="title">Character Selection</p>
+    </article>
 <!--movies populate here based on character selection -->
     <section class="movie-container columns is-gapless is-multiline">
         <article class="movie-select notification is-primary">
@@ -45,6 +50,7 @@
             <p class="title movie-name"></p>
             <p class="film-info"></p>
         </article>
+    </section>
     </section>
 </section>
 </section>
