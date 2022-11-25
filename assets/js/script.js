@@ -1,5 +1,5 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
-var reviewApiTitle = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" + "the lion king"
+var reviewApiTitle = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" 
 var apiKey = '091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
@@ -68,6 +68,51 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 }
 );
 
+characterFilmSection.addEventListener("click", function (event) {
+    movieInfo.textContent = "";
+    var characterFilmValue = (event.target.textContent)
+    console.log(characterFilmValue);
+    characterFilmFetch = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" + characterFilmValue
+    console.log(characterFilmFetch);
+        fetch(characterFilmFetch)
+            .then(function (response) {
+                console.log(response);
+                response.json().then(function (data) {
+                    console.log(data);
+                    if (data.results.length === 0){
+                        console.log("good")
+                        movieInfo.append("No Movie Found")
+                        return
+                    }
+                    
+    // fetch movie title and append to index
+        var movieTitle = document.createElement("p");
+        movieTitle.classList.add("title")
+        movieTitle.textContent = data.results[0].title
+        movieInfo.append(movieTitle);
+                    // fetch movie info and append to index
+                    var imgPull = document.createElement("img");
+                    imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
+                    movieInfo.append(imgPull);
+                    // fetch movie info and append to index
+                    var movieInfoPull = document.createElement("p");
+                    movieInfoPull.setAttribute("style", "font-size: 14px")
+                    movieInfoPull.textContent = data.results[0].release_date
+        // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
+                    movieInfo.append(movieInfoPull);
+                    // fetch movie rating and append to index
+                    var movieInfoPull = document.createElement("p");
+                    movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
+                    movieInfo.append(movieInfoPull);
+                    // fetch movie overview and append to index
+                    var movieInfoPull = document.createElement("p");
+                    movieInfoPull.textContent = data.results[0].overview
+                    movieInfoPull.setAttribute("style", "font-size: 14px")
+                    movieInfo.append(movieInfoPull);
+                })
+            })
+})
+
 function clearSearchHistory() {
     localStorage.clear();
     searchHistoryBtnEl.textContent = "";
@@ -104,40 +149,7 @@ function evaluateInput(event) {
         })
     textInput.value = '';
 }
-function getReviewApi() {
-    fetch(reviewApiTitle)
-        .then(function (response) {
-            console.log(response);
-            response.json().then(function (data) {
-                console.log(data);
-                
-// fetch movie title and append to index
-    var movieTitle = document.createElement("p");
-    movieTitle.classList.add("title")
-    movieTitle.textContent = data.results[0].title
-    movieName.append(movieTitle);
-                // fetch movie info and append to index
-                var imgPull = document.createElement("img");
-                imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
-                movieInfo.append(imgPull);
-                // fetch movie info and append to index
-                var movieInfoPull = document.createElement("p");
-                movieInfoPull.setAttribute("style", "font-size: 14px")
-                movieInfoPull.textContent = data.results[0].release_date
-    // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
-                movieInfo.append(movieInfoPull);
-                // fetch movie rating and append to index
-                var movieInfoPull = document.createElement("p");
-                movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
-                movieInfo.append(movieInfoPull);
-                // fetch movie overview and append to index
-                var movieInfoPull = document.createElement("p");
-                movieInfoPull.textContent = data.results[0].overview
-                movieInfoPull.setAttribute("style", "font-size: 14px")
-                movieInfo.append(movieInfoPull);
-            })
-        })
-}
+
 //populate character data
 function characterDisplay() {
     characterSelectionSub.textContent = "";
@@ -207,5 +219,4 @@ textInput.addEventListener('submit', characterDisplay);
 textInput.addEventListener('submit', renderStorage);
 clearSearch.addEventListener('click', clearSearchHistory);
 // populateMovie();
-getReviewApi();
 
