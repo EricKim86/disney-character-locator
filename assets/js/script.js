@@ -214,6 +214,9 @@ function characterDisplay() {
         //pull first item in data index
         //list the data from that film
         //apend data of the film to list
+        //pull disney film title
+        //pull title from review api
+        //for title === title display release date
         var firstFilm = document.createElement('li');
         firstFilm.textContent = 
         characterSelection.append(firstFilm);
