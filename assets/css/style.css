@@ -54,27 +54,13 @@ p {
     overflow: hidden;
     text-overflow: clip;
     white-space: normal;
+    text-transform: capitalize;
 }
 
 .button-color {
     background-color: #31C3E1 !important;
     width: 20vh;
     margin: 10px 0 !important;
-}
-
-#search-history-buttons{
-    display: flex;
-    flex-direction: column;
-}
-
-#search-history-buttons button{
-    margin: 4px;
-    padding: 6px;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: pink;
-    border: white;
-    border-radius: 45%;
 }
 
 button:hover {
