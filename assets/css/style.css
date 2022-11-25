@@ -147,6 +147,21 @@ button:active {
     padding: 20px !important;
 }
 
+.character li {
+    align-content: right !important;
+    list-style-type: none !important; 
+}
+
+img {
+    align-content: left !important;
+    width: auto !important;
+    height: 100% !important;
+}
+
+.character {
+    display: inline-flex !important;
+}
+
 /* media queries */
 @media screen and (max-width:768px) {
     .search,

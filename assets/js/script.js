@@ -1,11 +1,13 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
 var reviewApi = 'https://api.themoviedb.org/3/movie/109445?api_key=091a5c8f390a977d67ab12f38ec85102';
+var apiKey = '091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
 var characterSelection = document.getElementById("character-select")
 var characterSelectionSub = document.querySelector(".character-select")
 var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
+var disneyCharacterImage = 'https://static.wikia.nocookie.net/disney/images/2/27/Goofy_transparent.png';
 var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
 var characterSelection = document.querySelector('#character-select');
@@ -213,41 +215,39 @@ function characterDisplay() {
         numFilms.textContent = 'Number of films appeared in: ' + i;
         characterSelectionSub.append(numFilms);
 
+        var disneyFilmTitle = data.data.films;
 
-        //order date of film by descending - mostly likely through a search parameter property
-        //pull first item in data index
-        //list the data from that film
-        //apend data of the film to list
-        //OR. retrieve title from disneyapi
-        //retrieve tittle from reviewapi
-        //if disneytitle === reviewtitle
-        //return list of releasedates from reviewapi
-})
+        var disneyImg = document.createElement('img');
+        disneyImg.setAttribute('src', disneyCharacterImage);
+        characterSelectionSub.append(disneyImg);
 
-fetch(reviewApi)
-.then(function(response) {
-    console.log(response);
-    response.json().then(function (data) {
-        console.log(data);
-// fetch movie title and append to index
-        var movieTitle = document.createElement("p");
+
+        var reviewApiTitle = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey +'&query=' + characterVal;
+        fetch(reviewApiTitle)
+        .then(function(response) {
+            console.log(response);
+            response.json().then(function (data) {
+                console.log(data);
+        // fetch movie title and append to index
+                var movieReviewTitle = data.title;
+                console.log(movieReviewTitle);
+                console.log(disneyFilmTitle);
+                console.log(data);        
+                if (movieReviewTitle == disneyFilmTitle ) {
+                    var releaseDate = data.release_date;
+                    console.log(releaseDate);
+                    var firstFilm = document.createElement('li');
+                    firstFilm.textContent = releaseDate;
+                    characterSelectionSub.append(firstFilm);
+                } 
         
-        if(movieTitle == characterVal) {
-            var realeaseDate = data.realease_date;
-            return realeaseDate;
-        }
-    })
-
-getReviewApi();
-var releaseDate;
-console.log(data.data[0].data_);
-var firstFilm = document.createElement('li');
-firstFilm.textContent(releaseDate);
-characterSelectionSub.append(firstFilm);
-
-//retreive image from first data index
-//apend image in an image tag
+        
+            })
+        
+        })
+        
 })
+
 }
 
 textInput.addEventListener('submit', evaluateInput);
