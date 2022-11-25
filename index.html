@@ -17,36 +17,49 @@
         <img src="./assets/images/disney-logo.png" alt="Disney Character Locator logo" width="348px" height="80px">
     </nav> 
 <!-- Main section below the navbar -->
-<section class="columns is-gapless">
+<section class="main-container columns is-gapless">
 
 <!-- search bar and search history results -->
-
-    <section class="search section is-large">
+    <section class="container is-one-third search section is-large">
         <form class="text-input">
         <input class="input" id="search-text" type="text" placeholder="Please enter name">
         <br>
-        <button class="button is-primary button-color">Search</button>
+        <button class="button is-primary button-color-blue">Search</button>
         </form>
         <hr>
         <p>Search History</p>
-            <ul>
-                <li><button class="button is-primary button-color">Results #1</button></li>
-                <li><button class="button is-primary button-color">Results #1</button></li>
-                <li><button class="button is-primary button-color">Results #1</button></li>
-            </ul>
+        <section id="search-history-buttons"></section>
     </section>
 
-<!-- character display and movie display -->
-    <section class="results-section section columns is-gapless is-multiline">
-        <article class="character-select notification notification-custom is-primary">
-            <p class="title">Character Selection</p>
+<!-- character display -->
+    <section class="container is-two-thirds results-section columns is-gapless is-multiline">
+        <article class="character-select notification notification-custom is-primary mb-2">
+            <p id="character-select" class="title character-selection"></p>
         </article>
+
+<!--movies populate here based on character selection -->
+    <section class="movie-container columns is-gapless is-multiline">
         <article class="movie-select notification is-primary">
             <p class="title">Movie selection</p>
             <p id="character-films"></p>
         </article>
-    </section>
 
+<!-- movie data is dispayed here -->
+        <article id="movie-target" class="movie-info notification is-primary">
+            <p class="title movie-name"></p>
+            <p class="film-info"></p>
+        </article>
+    </section>
+</section>
+</section>
+
+<section class="modal is-active">
+    <section class="modal-background"></section>
+    <section class="modal-content has-background-white py-5 px-5">
+        <p class="has-text-centered"><img src="./assets/images/disney-logo.png" alt="Disney Character Locator logo" width="348px" height="80px"></p>
+        <p class="modal-text">Please enter a Disney character's name into the search field.</p>
+        <p class="modal-text">(press "esc" or "click anywhere" to start)</p>
+    </section>
 </section>
 
     <script src="./assets/js/script.js"></script>
