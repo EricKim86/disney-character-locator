@@ -152,7 +152,7 @@ button:active {
     list-style-type: none !important; 
 }
 
-.character img {
+.character-select img {
     align-items: right !important;
     width: auto !important;
     height: 100% !important;
@@ -162,7 +162,7 @@ button:active {
     flex: 0 0 100%;
 }
 
-.character article {
+.character-select article {
     display: inline-flex !important;
     flex-flow: row wrap;
 }
