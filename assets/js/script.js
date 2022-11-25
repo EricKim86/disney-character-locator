@@ -47,11 +47,13 @@ function getReviewApi() {
     })
 }
 
+//the function that will fetch data to show in display section
+//grabs number of films, first appearance and name
+//appends all of the above
 function characterDisplay() {
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-    //use input from disney fuction to retrieve name from disney api
     fetch(characterFetch)
     .then(function (response) {
         return response.json();
@@ -59,34 +61,37 @@ function characterDisplay() {
     .then(function (data) {
         console.log(data);
 
+        //looping over to count the number of films
         for (var i = 0; i < data.data[0].films.length; i++) {
-
-            //create element and populate film(s)
-         var characterFilm = document.createElement("h3");
-        characterFilm.textContent = data.data[0].films[i]
-    }
+            //this counts the films and allows us to use i as a counter
+            var numFilms = data.data[0].films[i];
+        }
         console.log(characterVal);
-        var characterName = document.createElement("h2");
+
+        //apends the character input to the character selection
+        var characterName = document.createElement('h3');
         characterName.textContent = characterVal;
         characterSelection.append(characterName);
 
-        var numFilms = document.createElement("li");
-        numFilms.textContent = 'Number of films appeared in:' + i;
+        //apends the number of films to the page by using the for loop element i.
+        //in the for loop i is the equivalent to number of films
+        var numFilms = document.createElement('li');
+        numFilms.textContent = 'Number of films appeared in: ' + i;
         characterSelection.append(numFilms);
 
-        console.log(i);
+
+        //order date of film by descending - mostly likely through a search parameter property
+        //pull first item in data index
+        //list the data from that film
+        //apend data of the film to list
+        var firstFilm = document.createElement('li');
+        firstFilm.textContent = 
+        characterSelection.append(firstFilm);
+
+        //retreive image from first data index
+        //apend image in an image tag
     })
-    
-    //use input from disney function to retrieve image from disney api
-    //use input from to retrieve # of films they appear in
-    //use input to retrieve the date of first appearce
-    //append to page
 }
-
-
-
-
-
 
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
