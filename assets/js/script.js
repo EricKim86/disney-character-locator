@@ -1,5 +1,4 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
-var reviewApiTitle = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" + "the lion king"
 var apiKey = '091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
@@ -78,6 +77,56 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 }
 );
 
+characterFilmSection.addEventListener("click", function (event) {
+  movieInfo.textContent = "";
+  var characterFilmValue = (event.target.textContent)
+  var reviewApiTitle = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" + characterFilmValue;
+  fetch(reviewApiTitle)
+  .then(function(response) {
+      response.json().then(function (data) {
+          console.log(data);
+
+if (data.results.length === 0) {
+  var movieError = document.createElement("p");
+  movieError.classList.add("title");
+  movieError.textContent = "No results Found";
+  movieInfo.append(movieError);
+  return
+}
+
+
+// fetch movie title and append to index
+var movieTitle = document.createElement("p");
+  movieTitle.classList.add("title")
+  movieTitle.textContent = data.results[0].title
+  movieInfo.append(movieTitle);
+
+// fetch movie info and append to index
+var imgPull = document.createElement("img");
+  imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
+  movieInfo.append(imgPull);
+
+// fetch movie info and append to index
+var movieInfoPull = document.createElement("p");
+  movieInfoPull.setAttribute("style", "font-size: 14px")
+  movieInfoPull.textContent = data.results[0].release_date
+  // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
+  movieInfo.append(movieInfoPull);
+      
+// fetch movie rating and append to index
+var movieInfoPull = document.createElement("p");
+  movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
+  movieInfo.append(movieInfoPull);
+
+// fetch movie overview and append to index
+var movieInfoPull = document.createElement("p");
+  movieInfoPull.textContent = data.results[0].overview
+  movieInfoPull.setAttribute("style", "font-size: 14px")
+  movieInfo.append(movieInfoPull);
+})
+})
+})
+
 function clearSearchHistory() {
   localStorage.clear();
   searchHistoryBtnEl.textContent = "";
@@ -121,45 +170,6 @@ function evaluateInput(event) {
         textInput.value = '';
 }
 
-function getReviewApi() {
-    fetch(reviewApiTitle)
-    .then(function(response) {
-        console.log(response);
-        response.json().then(function (data) {
-            console.log(data);
-
-// fetch movie title and append to index
-var movieTitle = document.createElement("p");
-movieTitle.classList.add("title")
-movieTitle.textContent = data.results[0].title
-movieName.append(movieTitle);
-
-// fetch movie info and append to index
-var imgPull = document.createElement("img");
-    imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
-    movieInfo.append(imgPull);
-
-// fetch movie info and append to index
-var movieInfoPull = document.createElement("p");
-    movieInfoPull.setAttribute("style", "font-size: 14px")
-    movieInfoPull.textContent = data.results[0].release_date
-    // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
-    movieInfo.append(movieInfoPull);
-        
-// fetch movie rating and append to index
-var movieInfoPull = document.createElement("p");
-    movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
-    movieInfo.append(movieInfoPull);
-
-// fetch movie overview and append to index
-var movieInfoPull = document.createElement("p");
-    movieInfoPull.textContent = data.results[0].overview
-    movieInfoPull.setAttribute("style", "font-size: 14px")
-    movieInfo.append(movieInfoPull);
-  })
-})
-}
-
 //populate character data
 function characterDisplay() {
     characterSelectionSub.textContent = "";
@@ -173,9 +183,21 @@ function characterDisplay() {
     })
     .then(function (data) {
 
-//looping over to count the number of films
+//looping over to count the number of records
         for (var i = 0; i < data.data[0].films.length; i++) {
             var numFilms = data.data[0].films[i];
+        }
+        
+        for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
+          var numPark = data.data[0].parkAttractions[j];
+        }
+
+        for (var k = 0; k < data.data[0].tvShows.length; k++) {
+          var numtv = data.data[0].tvShows[k];
+        }
+
+        for (var l = 0; l < data.data[0].videoGames.length; l++) {
+          var numVideo = data.data[0].videoGames[l];
         }
 
 //apends the character input to the character selection
@@ -185,10 +207,22 @@ function characterDisplay() {
         characterSelection.append(characterName);
         console.log(characterName);
 
-//apends the number of films to the page by using the for loop element i.
+//append character data 
         var numFilms = document.createElement("li");
-        numFilms.textContent = 'Number of films appeared in: ' + i;
+        numFilms.textContent = 'Number of appearances in Movies: ' + i;
         characterSelectionSub.append(numFilms);
+
+        var numtv = document.createElement("li");
+        numtv.textContent = 'Number of appearances in TV Shows: ' + k;
+        characterSelectionSub.append(numtv);
+
+        var numPark = document.createElement("li");
+        numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
+        characterSelectionSub.append(numPark);
+
+        var numVideo = document.createElement("li");
+        numVideo.textContent = 'Number of appearances in Video Games ' + l;
+        characterSelectionSub.append(numVideo);
 
         var disneyImg = document.createElement("img");
         disneyImg.setAttribute("src", data.data[0].imageUrl);
@@ -236,7 +270,7 @@ textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
 textInput.addEventListener('submit', renderStorage);
 clearSearch.addEventListener('click', clearSearchHistory);
+clearSearch.addEventListener('click', clearSearchHistory);
 
 // populateMovie();
-getReviewApi();
-
+// getReviewApi();

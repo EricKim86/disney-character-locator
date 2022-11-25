@@ -48,8 +48,8 @@ p {
 .search {
     background-color: #7D82B8;
     padding: 20px !important;
-    height: 150%;
-    min-height: 130vh;
+    height: 100%;
+    min-height: 140vh;
     width: 20%;
     text-align: center;
 }
