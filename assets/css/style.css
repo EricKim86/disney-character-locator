@@ -152,14 +152,19 @@ button:active {
     list-style-type: none !important; 
 }
 
-img {
-    align-content: left !important;
+.character img {
+    align-items: right !important;
     width: auto !important;
     height: 100% !important;
 }
 
-.character {
+.character p {
+    flex: 0 0 100%;
+}
+
+.character article {
     display: inline-flex !important;
+    flex-flow: row wrap;
 }
 
 /* media queries */
