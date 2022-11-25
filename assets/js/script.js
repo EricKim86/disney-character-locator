@@ -1,5 +1,5 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
-var reviewApi = 'https://api.themoviedb.org/3/movie/812?api_key=091a5c8f390a977d67ab12f38ec85102';
+var reviewApi = 'https://api.themoviedb.org/3/movie/109445?api_key=091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
 var movieInfo = document.querySelector(".movie-info")
@@ -15,6 +15,7 @@ function evaluateInput(event) {
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    console.log(characterVal);
    
 //fetch disney api
     fetch(characterFetch)
