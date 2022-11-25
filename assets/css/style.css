@@ -56,6 +56,44 @@ p {
     white-space: normal;
 }
 
+.button-color {
+    background-color: #31C3E1 !important;
+    width: 20vh;
+    margin: 10px 0 !important;
+}
+
+#search-history-buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#search-history-buttons button{
+    margin: 4px;
+    padding: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: pink;
+    border: white;
+    border-radius: 45%;
+}
+
+button:hover {
+    box-shadow: 0 0 6px 6px rgb(192, 190, 190);
+  }
+
+button:hover h3 {
+    display: block
+  }
+
+.current-data h2{
+    color: aliceblue;
+  }
+
+button:active {
+    font-size: 120%;
+    box-shadow: 0 0 10px #000 inset;
+  }
+
 /* navigation style */
 .navbar-custom {
     display: flex;

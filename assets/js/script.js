@@ -7,8 +7,66 @@ var characterSelectionSub = document.querySelector(".character-select")
 var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
 var textInput = document.querySelector('.text-input');
+var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
 var characterlist = [];
 var movielist = [];
+
+renderStorage()
+
+// addign data to local storage
+function saveToStorage(value) {
+  var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
+  if (searchHistoryArray.includes(value)) {
+      return
+  }
+  searchHistoryArray.push(value);
+  localStorage.setItem('characters', JSON.stringify(searchHistoryArray))
+}
+
+function renderStorage() {
+  var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
+  if (searchHistoryArray.length === 0) {
+      return
+  }
+  // searchHistoryBtnEl.innerHTML = ""
+  console.log("Rendering storage")
+  for (let i = 0; i < searchHistoryArray.length; i++) {
+      console.log(searchHistoryArray[i])
+      // var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
+      var searchHistoryBtn = document.createElement("button");
+      searchHistoryBtn.textContent = searchHistoryArray[i]
+      searchHistoryBtnEl.appendChild(searchHistoryBtn)
+  }
+}
+
+searchHistoryBtnEl.addEventListener("click", function (event) {
+  console.log("Good");
+  var searchHistoryBtnValue = (event.target.textContent)
+  console.log(searchHistoryBtnValue);
+  var searchHistoryFetch = 'https://api.disneyapi.dev/character?name=' + searchHistoryBtnValue;
+  fetch(searchHistoryFetch)
+      .then(function (response) {
+          return response.json();
+      })
+      .then(function (data) {
+          console.log(data);
+
+          // loop based on # of films for selected character
+          for (var i = 0; i < data.data[0].films.length; i++) {
+
+              //create element and populate film(s)
+              var characterFilm = document.createElement("h3");
+              characterFilm.textContent = data.data[0].films[i]
+
+              //append text to character selection section in index
+              characterFilmSection.append(characterFilm);
+
+          }
+      })
+}
+
+);
+
 
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
@@ -17,7 +75,7 @@ function evaluateInput(event) {
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-    console.log(characterVal);
+    saveToStorage(characterVal);
    
 //fetch disney api
     fetch(characterFetch)
@@ -117,8 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-textInput.addEventListener('submit', evaluateInput);
-textInput.addEventListener('submit', renderStorage);
 
 //the function that will fetch data to show in display section
 //grabs number of films, first appearance and name
@@ -169,5 +225,8 @@ function characterDisplay() {
 
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
+textInput.addEventListener('submit', evaluateInput);
+textInput.addEventListener('submit', renderStorage);
+
 
 getReviewApi();
