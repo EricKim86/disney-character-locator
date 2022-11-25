@@ -1,17 +1,16 @@
 var disneyApi = 'https://api.disneyapi.dev/characters';
-var reviewApi = 'https://api.themoviedb.org/3/movie/109445?api_key=091a5c8f390a977d67ab12f38ec85102';
+var reviewApiTitle = "https://api.themoviedb.org/3/search/movie?api_key=" + "091a5c8f390a977d67ab12f38ec85102" +"&query=" + "the lion king"
 var apiKey = '091a5c8f390a977d67ab12f38ec85102';
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
-var characterSelection = document.getElementById("character-select")
+var characterSelection = document.querySelector(".character-select")
 var characterSelectionSub = document.querySelector(".character-select")
+var characterImage = document.querySelector(".character-image")
 var clearSearch = document.querySelector(".clear-search")
 var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
-var disneyCharacterImage = 'https://static.wikia.nocookie.net/disney/images/2/27/Goofy_transparent.png';
 var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
-var characterSelection = document.querySelector('#character-select');
 var characterSelectionSub = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
@@ -79,7 +78,6 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 }
 );
 
-
 function clearSearchHistory() {
   localStorage.clear();
   searchHistoryBtnEl.textContent = "";
@@ -124,108 +122,81 @@ function evaluateInput(event) {
 }
 
 function getReviewApi() {
-    fetch(reviewApi)
+    fetch(reviewApiTitle)
     .then(function(response) {
         console.log(response);
         response.json().then(function (data) {
             console.log(data);
+
 // fetch movie title and append to index
-            var movieTitle = document.createElement("p");
-            movieTitle.classList.add("title")
-            movieTitle.textContent = data.title
-            movieName.append(movieTitle);
+var movieTitle = document.createElement("p");
+movieTitle.classList.add("title")
+movieTitle.textContent = data.results[0].title
+movieName.append(movieTitle);
 
 // fetch movie info and append to index
 var imgPull = document.createElement("img");
-    imgPull.setAttribute("src", movieImage + data.backdrop_path);
+    imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
     movieInfo.append(imgPull);
 
 // fetch movie info and append to index
 var movieInfoPull = document.createElement("p");
     movieInfoPull.setAttribute("style", "font-size: 14px")
-    movieInfoPull.textContent = data.release_date + " | " + data.runtime + " min" + " | " + data.genres[0].name
+    movieInfoPull.textContent = data.results[0].release_date
+    // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
     movieInfo.append(movieInfoPull);
         
 // fetch movie rating and append to index
 var movieInfoPull = document.createElement("p");
-    movieInfoPull.textContent = "Rating: " + data.vote_average
+    movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
     movieInfo.append(movieInfoPull);
 
 // fetch movie overview and append to index
 var movieInfoPull = document.createElement("p");
-    movieInfoPull.textContent = data.overview
+    movieInfoPull.textContent = data.results[0].overview
     movieInfoPull.setAttribute("style", "font-size: 14px")
     movieInfo.append(movieInfoPull);
   })
 })
 }
 
-//the function that will fetch data to show in display section
-//grabs number of films, first appearance and name
-//appends all of the above
+//populate character data
 function characterDisplay() {
-    characterSelection.textContent = '';
+    characterSelectionSub.textContent = "";
+    characterSelection.textContent = "";
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
-    var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
     fetch(characterFetch)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
 
-        //looping over to count the number of films
+//looping over to count the number of films
         for (var i = 0; i < data.data[0].films.length; i++) {
-            //this counts the films and allows us to use i as a counter
             var numFilms = data.data[0].films[i];
         }
 
-        //apends the character input to the character selection
-        var characterName = document.createElement('h1');
-        characterName.textContent = characterVal;
+//apends the character input to the character selection
+        var characterName = document.createElement("p");
+        characterName.classList.add("title")
+        characterName.textContent = data.data[0].name;
         characterSelection.append(characterName);
+        console.log(characterName);
 
-        //apends the number of films to the page by using the for loop element i.
-        //in the for loop i is the equivalent to number of films
-        var numFilms = document.createElement('li');
+//apends the number of films to the page by using the for loop element i.
+        var numFilms = document.createElement("li");
         numFilms.textContent = 'Number of films appeared in: ' + i;
         characterSelectionSub.append(numFilms);
 
-        var disneyFilmTitle = data.data.films;
-
-        var disneyImg = document.createElement('img');
-        disneyImg.setAttribute('src', disneyCharacterImage);
-        characterSelectionSub.append(disneyImg);
-
-
-        var reviewApiTitle = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey +'&query=' + characterVal;
-        fetch(reviewApiTitle)
-        .then(function(response) {
-            console.log(response);
-            response.json().then(function (data) {
-                console.log(data);
-        // fetch movie title and append to index
-                var movieReviewTitle = data.title;
-                console.log(movieReviewTitle);
-                console.log(disneyFilmTitle);
-                console.log(data);        
-                if (movieReviewTitle == disneyFilmTitle ) {
-                    var releaseDate = data.release_date;
-                    console.log(releaseDate);
-                    var firstFilm = document.createElement('li');
-                    firstFilm.textContent = releaseDate;
-                    characterSelectionSub.append(firstFilm);
-                } 
-        
-        
-            })
-        
-        })
-        
+        var disneyImg = document.createElement("img");
+        disneyImg.setAttribute("src", data.data[0].imageUrl);
+        characterImage.textContent = "";
+        characterImage.append(disneyImg);
 })
 
 }
-
 
 // introduction modal with instructions on how to use the app
 document.addEventListener('DOMContentLoaded', () => {
@@ -261,10 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
 textInput.addEventListener('submit', renderStorage);
 clearSearch.addEventListener('click', clearSearchHistory);
 
+// populateMovie();
 getReviewApi();
+
