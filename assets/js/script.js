@@ -62,9 +62,9 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
               characterFilm.textContent = data.data[0].films[i]
 //append text to character selection section in index
               characterFilmSection.append(characterFilm);
-              }
-              characterSelectionSub.textContent = "";
-              characterImage.textContent = "";
+        }
+        characterImage.textContent = "";
+        characterSelectionSub.textContent = "";
           for (var i = 0; i < data.data[0].films.length; i++) {
             var numFilms = data.data[0].films[i];
         }
@@ -79,7 +79,7 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
         }
 //apends the character input to the character selection
         var characterName = document.createElement("p");
-        characterName.classList.add("title")
+        characterName.classList.add("title-text")
         characterName.textContent = data.data[0].name;
         characterSelection.append(characterName);
         console.log(characterName);
@@ -100,7 +100,6 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
         disneyImg.setAttribute("src", data.data[0].imageUrl);
         characterImage.textContent = "";
         characterImage.append(disneyImg);
-          
       })
 }
 );
@@ -111,17 +110,16 @@ characterFilmSection.addEventListener("click", function (event) {
   fetch(reviewApiTitle)
   .then(function(response) {
       response.json().then(function (data) {
-          console.log(data);
 if (data.results.length === 0) {
   var movieError = document.createElement("p");
-  movieError.classList.add("title");
+  movieError.classList.add("title-text");
   movieError.textContent = "No results Found";
   movieInfo.append(movieError);
   return
 }
 // fetch movie title and append to index
 var movieTitle = document.createElement("p");
-  movieTitle.classList.add("title")
+  movieTitle.classList.add("title-text")
   movieTitle.textContent = data.results[0].title
   movieInfo.append(movieTitle);
 // fetch movie info and append to index
@@ -130,7 +128,7 @@ var imgPull = document.createElement("img");
   movieInfo.append(imgPull);
 // fetch movie info and append to index
 var movieInfoPull = document.createElement("p");
-  movieInfoPull.setAttribute("style", "font-size: 14px")
+  movieInfoPull.setAttribute("style", "font-size: 18px")
   movieInfoPull.textContent = data.results[0].release_date
   // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
   movieInfo.append(movieInfoPull);
@@ -141,7 +139,7 @@ var movieInfoPull = document.createElement("p");
 // fetch movie overview and append to index
 var movieInfoPull = document.createElement("p");
   movieInfoPull.textContent = data.results[0].overview
-  movieInfoPull.setAttribute("style", "font-size: 14px")
+  movieInfoPull.setAttribute("style", "font-size: 20px")
   movieInfo.append(movieInfoPull);
 })
 })
@@ -158,8 +156,8 @@ function evaluateInput(event) {
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    console.log(characterFetch);
     saveToStorage(characterVal);
-    
 //fetch disney api
     fetch(characterFetch)
         .then(function (response) {
@@ -167,8 +165,10 @@ function evaluateInput(event) {
         })
         .then(function (data) {
             console.log(data);
-
-
+            if (data.data.length === 0){
+              console.log("good");
+              return
+            }
             // loop based on # of films for selected character
             for (var i = 0; i < data.data[0].films.length; i++) {
 //create element and populate film(s)       
@@ -185,58 +185,59 @@ function evaluateInput(event) {
         })
         textInput.value = '';
 }
+
 //populate character data
 function characterDisplay() {
-    characterSelectionSub.textContent = "";
-    characterSelection.textContent = "";
-    var characterInput = document.getElementById('search-text');
-    var characterVal = characterInput.value;
-    var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
-    fetch(characterFetch)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        if(characterVal == ""){
-            characterImage.innerHTML = ""
-            return
-        }
+  characterSelectionSub.textContent = "";
+  characterSelection.textContent = "";
+  var characterInput = document.getElementById('search-text');
+  var characterVal = characterInput.value;
+  var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
+  fetch(characterFetch)
+  .then(function (response) {
+      return response.json();
+  })
+  .then(function (data) {
+      if(characterVal == ""){
+          characterImage.innerHTML = ""
+          return
+      }
 //looping over to count the number of records
-        for (var i = 0; i < data.data[0].films.length; i++) {
-            var numFilms = data.data[0].films[i];
-        }
-        for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
-          var numPark = data.data[0].parkAttractions[j];
-        }
-        for (var k = 0; k < data.data[0].tvShows.length; k++) {
-          var numtv = data.data[0].tvShows[k];
-        }
-        for (var l = 0; l < data.data[0].videoGames.length; l++) {
-          var numVideo = data.data[0].videoGames[l];
-        }
+      for (var i = 0; i < data.data[0].films.length; i++) {
+          var numFilms = data.data[0].films[i];
+      }
+      for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
+        var numPark = data.data[0].parkAttractions[j];
+      }
+      for (var k = 0; k < data.data[0].tvShows.length; k++) {
+        var numtv = data.data[0].tvShows[k];
+      }
+      for (var l = 0; l < data.data[0].videoGames.length; l++) {
+        var numVideo = data.data[0].videoGames[l];
+      }
 //apends the character input to the character selection
-        var characterName = document.createElement("p");
-        characterName.classList.add("title")
-        characterName.textContent = data.data[0].name;
-        characterSelection.append(characterName);
-        console.log(characterName);
+      var characterName = document.createElement("p");
+      characterName.classList.add("title")
+      characterName.textContent = data.data[0].name;
+      characterSelection.append(characterName);
+      console.log(characterName);
 //append character data
-        var numFilms = document.createElement("li");
-        numFilms.textContent = 'Number of appearances in Movies: ' + i;
-        characterSelectionSub.append(numFilms);
-        var numtv = document.createElement("li");
-        numtv.textContent = 'Number of appearances in TV Shows: ' + k;
-        characterSelectionSub.append(numtv);
-        var numPark = document.createElement("li");
-        numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
-        characterSelectionSub.append(numPark);
-        var numVideo = document.createElement("li");
-        numVideo.textContent = 'Number of appearances in Video Games ' + l;
-        characterSelectionSub.append(numVideo);
-        var disneyImg = document.createElement("img");
-        disneyImg.setAttribute("src", data.data[0].imageUrl);
-        characterImage.textContent = "";
-        characterImage.append(disneyImg);
+      var numFilms = document.createElement("li");
+      numFilms.textContent = 'Number of appearances in Movies: ' + i;
+      characterSelectionSub.append(numFilms);
+      var numtv = document.createElement("li");
+      numtv.textContent = 'Number of appearances in TV Shows: ' + k;
+      characterSelectionSub.append(numtv);
+      var numPark = document.createElement("li");
+      numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
+      characterSelectionSub.append(numPark);
+      var numVideo = document.createElement("li");
+      numVideo.textContent = 'Number of appearances in Video Games ' + l;
+      characterSelectionSub.append(numVideo);
+      var disneyImg = document.createElement("img");
+      disneyImg.setAttribute("src", data.data[0].imageUrl);
+      characterImage.textContent = "";
+      characterImage.append(disneyImg);
 })
 }
 // introduction modal with instructions on how to use the app
