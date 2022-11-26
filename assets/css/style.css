@@ -1,17 +1,19 @@
 body {
-  font-family: 'Mouse Memoirs', sans-serif;
+    font-family: 'Mouse Memoirs', sans-serif;
 }
 ul {
   list-style-type: none;
   text-align: center;
 }
+
 p,
 li {
-  color: white;
-  font-size: 25px;
+    color: white;
+    font-size: 25px;
 }
+
 .title-text {
-  font-size: 35px !important;
+    font-size: 35px !important;
 }
 .character-image img {
   width: 100%;
@@ -42,25 +44,24 @@ li {
   margin: 10px 0 !important;
 }
 .search {
-  background-color: #7D82B8;
-  padding: 20px !important;
-  height: 100%;
-  min-height: 140vh;
-  width: 20%;
-  text-align: center;
-  margin-top: 10px;
-  margin-left: 10px;
-  border-radius: 4px;
+    background-color: #7D82B8;
+    padding: 20px !important;
+    height: 100%;
+    min-height: 140vh;
+    width: 18%;
+    text-align: center;
+    border-radius: 4px;
+    margin: 10px 0 0 5px;
 }
 .button {
-  margin: 5px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: clip;
-  white-space: normal;
-  text-transform: capitalize;
-  font-family: 'Mouse Memoirs', sans-serif;
-  font-size: 18px;
+    margin: 5px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal;
+    text-transform: capitalize;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 18px;
 }
 .button-color {
   background-color: #31C3E1 !important;
@@ -100,15 +101,15 @@ button:active {
   color: white !important;
 }
 .character-image {
-  height: 25%;
-  min-height: 25vh;
-  width: 20%;
-  margin-right: 10px;
+    height: 30%;
+    min-height: 25vh;
+    width: 20%;
+    margin-right: 10px;
 }
 .character-select {
-  height: 25%;
-  min-height: 25vh;
-  width: 79%;
+    height: 30%;
+    min-height: 25vh;
+    width: 79%;
 }
 /* movie selection and information styles */
 .movie-container {
@@ -153,16 +154,12 @@ button:active {
   }
 }
 @media screen and (max-width:768px) {
-  .character-select {
-      height: 15%;
-      min-height: 15;
-  }
-}
-@media screen and (max-width:768px) {
-  .character-select {
-      height: 20%;
-  }
-}
+    .character-select {
+        height: 30%;
+        min-height: 15%;
+    }
+} 
+
 @media screen and (max-width:768px) {
   .movie-select {
       height: 100%;

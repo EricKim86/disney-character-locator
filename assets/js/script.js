@@ -10,7 +10,6 @@ var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
 var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
-var characterSelectionSub = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
 renderStorage();
@@ -65,44 +64,63 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
         }
         characterImage.textContent = "";
         characterSelectionSub.textContent = "";
+        movieInfo.textContent = "Movie Info";
+        movieInfo.classList.add("title-text")
+
           for (var i = 0; i < data.data[0].films.length; i++) {
             var numFilms = data.data[0].films[i];
         }
+        
         for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
           var numPark = data.data[0].parkAttractions[j];
         }
+
         for (var k = 0; k < data.data[0].tvShows.length; k++) {
           var numtv = data.data[0].tvShows[k];
         }
+
         for (var l = 0; l < data.data[0].videoGames.length; l++) {
           var numVideo = data.data[0].videoGames[l];
         }
+
 //apends the character input to the character selection
         var characterName = document.createElement("p");
         characterName.classList.add("title-text")
         characterName.textContent = data.data[0].name;
         characterSelection.append(characterName);
         console.log(characterName);
-//append character data
+
+//append character data 
         var numFilms = document.createElement("li");
         numFilms.textContent = 'Number of appearances in Movies: ' + i;
         characterSelectionSub.append(numFilms);
+
         var numtv = document.createElement("li");
         numtv.textContent = 'Number of appearances in TV Shows: ' + k;
         characterSelectionSub.append(numtv);
+
         var numPark = document.createElement("li");
         numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
         characterSelectionSub.append(numPark);
+
         var numVideo = document.createElement("li");
         numVideo.textContent = 'Number of appearances in Video Games ' + l;
         characterSelectionSub.append(numVideo);
+        
+        var firstFilmApperance = document.createElement("li");
+        var firstMovie = data.data[0].films[0]
+        firstFilmApperance.textContent = "First film apperance: "+ firstMovie
+        characterSelectionSub.append(firstFilmApperance);
+
         var disneyImg = document.createElement("img");
         disneyImg.setAttribute("src", data.data[0].imageUrl);
         characterImage.textContent = "";
         characterImage.append(disneyImg);
+
       })
 }
 );
+
 characterFilmSection.addEventListener("click", function (event) {
   movieInfo.textContent = "";
   var characterFilmValue = (event.target.textContent)
@@ -110,68 +128,87 @@ characterFilmSection.addEventListener("click", function (event) {
   fetch(reviewApiTitle)
   .then(function(response) {
       response.json().then(function (data) {
+
 if (data.results.length === 0) {
   var movieError = document.createElement("p");
   movieError.classList.add("title-text");
-  movieError.textContent = "No results Found";
+  movieError.textContent = "Sorry friend!  It looks like we are having trouble finding your movie!  Please try another movie.";
   movieInfo.append(movieError);
   return
 }
+
 // fetch movie title and append to index
 var movieTitle = document.createElement("p");
   movieTitle.classList.add("title-text")
   movieTitle.textContent = data.results[0].title
   movieInfo.append(movieTitle);
+
 // fetch movie info and append to index
 var imgPull = document.createElement("img");
   imgPull.setAttribute("src", movieImage + data.results[0].backdrop_path);
   movieInfo.append(imgPull);
+
 // fetch movie info and append to index
 var movieInfoPull = document.createElement("p");
   movieInfoPull.setAttribute("style", "font-size: 18px")
   movieInfoPull.textContent = data.results[0].release_date
-  // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
   movieInfo.append(movieInfoPull);
+      
 // fetch movie rating and append to index
 var movieInfoPull = document.createElement("p");
   movieInfoPull.textContent = "Rating: " + data.results[0].vote_average
   movieInfo.append(movieInfoPull);
+
 // fetch movie overview and append to index
 var movieInfoPull = document.createElement("p");
   movieInfoPull.textContent = data.results[0].overview
   movieInfoPull.setAttribute("style", "font-size: 20px")
   movieInfo.append(movieInfoPull);
+    })
+  })
 })
-})
-})
+
 function clearSearchHistory() {
   localStorage.clear();
   searchHistoryBtnEl.textContent = "";
   characterFilmSection.textContent = "";
+  characterSelectionSub.textContent = "Character Selection";
+  characterSelectionSub.classList.add("title-text")
+  characterImage.textContent = "Character Image";
+  characterImage.classList.add("title-text")
+  movieInfo.textContent = "Movie Info"
+  movieInfo.classList.add("title-text")
 }
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
-    characterFilmSection.textContent = '';
+    movieInfo.textContent = "Movie Info";
+    movieInfo.classList.add("title-text")
     event.preventDefault()
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-    console.log(characterFetch);
+    
     saveToStorage(characterVal);
+
 //fetch disney api
     fetch(characterFetch)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-            if (data.data.length === 0){
-              console.log("good");
-              return
-            }
-            // loop based on # of films for selected character
+  
+
+        if (data.data.length === 0) {
+          var charError = document.createElement("p");
+          charError.classList.add("title")
+          charError.textContent = "Please Enter a Valid Character Name"
+          characterSelection.append(charError);
+          return
+        }
+      
             for (var i = 0; i < data.data[0].films.length; i++) {
-//create element and populate film(s)       
+         
+//create element and populate film(s)        
             var characterFilm = document.createElement("button");
             characterFilm.classList.add("button")
             characterFilm.classList.add("is-primary")
@@ -220,20 +257,24 @@ function characterDisplay() {
       characterName.classList.add("title")
       characterName.textContent = data.data[0].name;
       characterSelection.append(characterName);
-      console.log(characterName);
+
 //append character data
       var numFilms = document.createElement("li");
-      numFilms.textContent = 'Number of appearances in Movies: ' + i;
+      numFilms.textContent = "Number of appearances in Movies: " + i;
       characterSelectionSub.append(numFilms);
       var numtv = document.createElement("li");
-      numtv.textContent = 'Number of appearances in TV Shows: ' + k;
+      numtv.textContent = "Number of appearances in TV Shows: " + k;
       characterSelectionSub.append(numtv);
       var numPark = document.createElement("li");
-      numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
+      numPark.textContent = "Number of appearances in Park Attractions: " + j;
       characterSelectionSub.append(numPark);
       var numVideo = document.createElement("li");
-      numVideo.textContent = 'Number of appearances in Video Games ' + l;
+      numVideo.textContent = "Number of appearances in Video Games: " + l;
       characterSelectionSub.append(numVideo);
+      var firstFilmApperance = document.createElement("li");
+      var firstMovie = data.data[0].films[0]
+      firstFilmApperance.textContent = "First film apperance: "+ firstMovie
+      characterSelectionSub.append(firstFilmApperance);
       var disneyImg = document.createElement("img");
       disneyImg.setAttribute("src", data.data[0].imageUrl);
       characterImage.textContent = "";
