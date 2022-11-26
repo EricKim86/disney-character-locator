@@ -10,7 +10,6 @@ var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
 var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
-var characterSelectionSub = document.querySelector('.character-select');
 var characterlist = [];
 var movielist = [];
 
@@ -74,6 +73,8 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
         }
         characterImage.textContent = "";
         characterSelectionSub.textContent = "";
+        movieInfo.textContent = "Movie Info";
+        movieInfo.classList.add("title-text")
 
           for (var i = 0; i < data.data[0].films.length; i++) {
             var numFilms = data.data[0].films[i];
@@ -114,11 +115,17 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
         var numVideo = document.createElement("li");
         numVideo.textContent = 'Number of appearances in Video Games ' + l;
         characterSelectionSub.append(numVideo);
+        
+        var firstFilmApperance = document.createElement("li");
+        var firstMovie = data.data[0].films[0]
+        firstFilmApperance.textContent = "First film apperance: "+ firstMovie
+        characterSelectionSub.append(firstFilmApperance);
 
         var disneyImg = document.createElement("img");
         disneyImg.setAttribute("src", data.data[0].imageUrl);
         characterImage.textContent = "";
         characterImage.append(disneyImg);
+
       })
 }
 );
@@ -134,7 +141,7 @@ characterFilmSection.addEventListener("click", function (event) {
 if (data.results.length === 0) {
   var movieError = document.createElement("p");
   movieError.classList.add("title-text");
-  movieError.textContent = "No results Found";
+  movieError.textContent = "Sorry friend!  It looks like we are having trouble finding your movie!  Please try another movie.";
   movieInfo.append(movieError);
   return
 }
@@ -154,7 +161,6 @@ var imgPull = document.createElement("img");
 var movieInfoPull = document.createElement("p");
   movieInfoPull.setAttribute("style", "font-size: 18px")
   movieInfoPull.textContent = data.results[0].release_date
-  // movieInfoPull.textContent = data.results[0].release_date + " | " + data.results[0].runtime + " min" + " | " + data.results[0].genres[0].name
   movieInfo.append(movieInfoPull);
       
 // fetch movie rating and append to index
@@ -167,38 +173,52 @@ var movieInfoPull = document.createElement("p");
   movieInfoPull.textContent = data.results[0].overview
   movieInfoPull.setAttribute("style", "font-size: 20px")
   movieInfo.append(movieInfoPull);
-})
-})
+    })
+  })
 })
 
 function clearSearchHistory() {
   localStorage.clear();
   searchHistoryBtnEl.textContent = "";
   characterFilmSection.textContent = "";
+  characterSelectionSub.textContent = "Character Selection";
+  characterSelectionSub.classList.add("title-text")
+  characterImage.textContent = "Character Image";
+  characterImage.classList.add("title-text")
+  movieInfo.textContent = "Movie Info"
+  movieInfo.classList.add("title-text")
 }
 
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
-    characterFilmSection.textContent = '';
+    movieInfo.textContent = "Movie Info";
+    movieInfo.classList.add("title-text")
     event.preventDefault()
 
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
-
+    
     saveToStorage(characterVal);
-   
+
 //fetch disney api
     fetch(characterFetch)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+  
 
-            // loop based on # of films for selected character
+        if (data.data.length === 0) {
+          var charError = document.createElement("p");
+          charError.classList.add("title")
+          charError.textContent = "Please Enter a Valid Character Name"
+          characterSelection.append(charError);
+          return
+        }
+      
             for (var i = 0; i < data.data[0].films.length; i++) {
-
+         
 //create element and populate film(s)        
             var characterFilm = document.createElement("button");
             characterFilm.classList.add("button")
@@ -249,20 +269,24 @@ function characterDisplay() {
       characterName.classList.add("title")
       characterName.textContent = data.data[0].name;
       characterSelection.append(characterName);
-      console.log(characterName);
+
 //append character data
       var numFilms = document.createElement("li");
-      numFilms.textContent = 'Number of appearances in Movies: ' + i;
+      numFilms.textContent = "Number of appearances in Movies: " + i;
       characterSelectionSub.append(numFilms);
       var numtv = document.createElement("li");
-      numtv.textContent = 'Number of appearances in TV Shows: ' + k;
+      numtv.textContent = "Number of appearances in TV Shows: " + k;
       characterSelectionSub.append(numtv);
       var numPark = document.createElement("li");
-      numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
+      numPark.textContent = "Number of appearances in Park Attractions: " + j;
       characterSelectionSub.append(numPark);
       var numVideo = document.createElement("li");
-      numVideo.textContent = 'Number of appearances in Video Games ' + l;
+      numVideo.textContent = "Number of appearances in Video Games: " + l;
       characterSelectionSub.append(numVideo);
+      var firstFilmApperance = document.createElement("li");
+      var firstMovie = data.data[0].films[0]
+      firstFilmApperance.textContent = "First film apperance: "+ firstMovie
+      characterSelectionSub.append(firstFilmApperance);
       var disneyImg = document.createElement("img");
       disneyImg.setAttribute("src", data.data[0].imageUrl);
       characterImage.textContent = "";
