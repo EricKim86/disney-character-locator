@@ -74,7 +74,6 @@ button:hover {
 button:active {
   font-size: 105%;
   box-shadow: 0 0 10px #000 inset;
-
 }
 .clear-search {
   background-color: #E490A0 !important;
@@ -101,13 +100,13 @@ button:active {
   color: white !important;
 }
 .character-image {
-    height: 30%;
+    height: 25%;
     min-height: 25vh;
     width: 20%;
     margin-right: 10px;
 }
 .character-select {
-    height: 30%;
+    height: 25%;
     min-height: 25vh;
     width: 79%;
 }
@@ -155,8 +154,14 @@ button:active {
 }
 @media screen and (max-width:768px) {
     .character-select {
-        height: 30%;
-        min-height: 15%;
+        height: 15%;
+        min-height: 15;
+    }
+} 
+
+@media screen and (max-width:768px) {
+    .character-select {
+        height: 20%;
     }
 } 
 
