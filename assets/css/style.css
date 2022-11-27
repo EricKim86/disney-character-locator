@@ -75,6 +75,9 @@ button:active {
   font-size: 105%;
   box-shadow: 0 0 10px #000 inset;
 }
+button:focus {
+  background-color: #E490A0 !important;
+}
 .clear-search {
   background-color: #E490A0 !important;
 }
