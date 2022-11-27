@@ -1,5 +1,5 @@
 body {
-    font-family: 'Noto Sans Mende Kikakui', sans-serif !important;
+    font-family: 'Mouse Memoirs', sans-serif;
 }
 
 ul {
@@ -7,9 +7,19 @@ ul {
     text-align: center;
 }
 
-p {
+p,
+li {
     color: white;
-    font-size: 20px;
+    font-size: 25px;
+}
+
+.title-text {
+    font-size: 35px !important;
+}
+.character-image img {
+    width: 100%;
+    height: 100%; 
+    object-fit: contain;
 }
 
 .modal-text {
@@ -42,10 +52,12 @@ p {
 .search {
     background-color: #7D82B8;
     padding: 20px !important;
-    height: 150%;
-    min-height: 130vh;
-    width: 20%;
+    height: 100%;
+    min-height: 140vh;
+    width: 18%;
     text-align: center;
+    border-radius: 4px;
+    margin: 10px 0 0 5px;
 }
 
 .button {
@@ -55,6 +67,8 @@ p {
     text-overflow: clip;
     white-space: normal;
     text-transform: capitalize;
+    font-family: 'Mouse Memoirs', sans-serif;
+    font-size: 18px;
 }
 
 .button-color {
@@ -67,18 +81,14 @@ button:hover {
     box-shadow: 0 0 6px 6px rgb(192, 190, 190);
   }
 
-button:hover h3 {
-    display: block
-  }
-
-.current-data h2{
-    color: aliceblue;
-  }
-
 button:active {
-    font-size: 120%;
+    font-size: 105%;
     box-shadow: 0 0 10px #000 inset;
   }
+
+.clear-search {
+    background-color: #E490A0 !important;
+}
 
 /* navigation style */
 .navbar-custom {
@@ -91,7 +101,6 @@ button:active {
 }
 
 /* character display */
-
 .character-display {
     width: 100%;
 }
@@ -107,10 +116,17 @@ button:active {
     color: white !important;
 }
 
+.character-image {
+    height: 30%;
+    min-height: 25vh;
+    width: 20%;
+    margin-right: 10px;
+}
+
 .character-select {
-    height: 20%;
-    min-height: 20vh;
-    width: 100%;
+    height: 30%;
+    min-height: 25vh;
+    width: 79%;
 }
 
 /* movie selection and information styles */
@@ -138,25 +154,16 @@ button:active {
     list-style-type: none !important; 
 }
 
-.character-select img {
-    align-items: right !important;
-    width: auto !important;
-    height: 100% !important;
-}
-
 .character p {
     flex: 0 0 100%;
-}
-
-.character-select article {
-    display: inline-flex !important;
-    flex-flow: row wrap;
 }
 
 /* media queries */
 @media screen and (max-width:768px) {
     .search,
     .character-display,
+    .character-image,
+    .character-select,
     .movie-select,
     .movie-info { 
         width: 100%;
@@ -164,8 +171,16 @@ button:active {
 } 
 
 @media screen and (max-width:768px) {
+    .character-image {
+        height: 25%;
+        min-height: 20;
+    }
+} 
+
+@media screen and (max-width:768px) {
     .character-select {
-        height: 20%;
+        height: 30%;
+        min-height: 15%;
     }
 } 
 
