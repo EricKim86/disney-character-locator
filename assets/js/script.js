@@ -12,9 +12,7 @@ var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
 var characterlist = [];
 var movielist = [];
-
 renderStorage();
-
 // adding data to local storage
 function saveToStorage(value) {
   var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
@@ -27,26 +25,22 @@ function saveToStorage(value) {
   searchHistoryArray.push(value);
   localStorage.setItem('characters', JSON.stringify(searchHistoryArray))
 }
-
 function renderStorage() {
   var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
   if (searchHistoryArray.length === 0) {
       return
   }
- 
       searchHistoryBtnEl.textContent = "";
   for (let i = 0; i < searchHistoryArray.length; i++) {
-
       var searchHistoryBtn = document.createElement("button");
       searchHistoryBtn.classList.add("button")
       searchHistoryBtn.classList.add("is-primary")
       searchHistoryBtn.classList.add("button-size-large")
-      searchHistoryBtn.classList.add("button-color-blue") 
+      searchHistoryBtn.classList.add("button-color-blue")
       searchHistoryBtn.textContent = searchHistoryArray[i]
       searchHistoryBtnEl.appendChild(searchHistoryBtn)
   }
 }
-
 searchHistoryBtnEl.addEventListener("click", function (event) {
   var searchHistoryBtnValue = (event.target.textContent)
   var searchHistoryFetch = 'https://api.disneyapi.dev/character?name=' + searchHistoryBtnValue;
@@ -55,19 +49,16 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
           return response.json();
       })
       .then(function (data) {
-
 // loop based on # of films for selected character
               characterFilmSection.textContent = "";
           for (var i = 0; i < data.data[0].films.length; i++) {
-
 //create element and populate film(s)
               var characterFilm = document.createElement("button");
               characterFilm.classList.add("button")
               characterFilm.classList.add("is-primary")
               characterFilm.classList.add("button-size-large")
-              characterFilm.classList.add("button-color-purple") 
+              characterFilm.classList.add("button-color-purple")
               characterFilm.textContent = data.data[0].films[i]
-
 //append text to character selection section in index
               characterFilmSection.append(characterFilm);
         }
@@ -188,13 +179,11 @@ function clearSearchHistory() {
   movieInfo.textContent = "Movie Info"
   movieInfo.classList.add("title-text")
 }
-
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
     movieInfo.textContent = "Movie Info";
     movieInfo.classList.add("title-text")
     event.preventDefault()
-
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
@@ -225,9 +214,8 @@ function evaluateInput(event) {
             characterFilm.classList.add("is-primary")
             characterFilm.classList.add("button-target")
             characterFilm.classList.add("button-size-large")
-            characterFilm.classList.add("button-color-purple") 
+            characterFilm.classList.add("button-color-purple")
             characterFilm.textContent = data.data[0].films[i]
-
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
             textInput.reset()
@@ -294,41 +282,32 @@ function characterDisplay() {
       characterImage.append(disneyImg);
 })
 }
-
 // introduction modal with instructions on how to use the app
 document.addEventListener('DOMContentLoaded', () => {
-    
   function openModal($el) {
     $el.classList.add("is-active");
   }
-
   function closeModal($el) {
     $el.classList.remove("is-active");
   }
-
   function closeAllModals() {
     (document.querySelectorAll(".modal") || []).forEach(($modal) => {
       closeModal($modal);
     });
   }
-
 (document.querySelectorAll(".modal") || []).forEach(($close) => {
   const $target = $close.closest('.modal');
-
   $close.addEventListener('click', () => {
     closeModal($target);
   });
 });
-
   document.addEventListener("keydown", (event) => {
     const e = event || window.event;
-
     if (e) { // key
       closeAllModals();
     }
   });
 });
-
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
 textInput.addEventListener('submit', renderStorage);
