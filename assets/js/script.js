@@ -164,6 +164,7 @@ var movieInfoPull = document.createElement("p");
   movieInfoPull.textContent = data.results[0].overview
   movieInfoPull.setAttribute("style", "font-size: 20px")
   movieInfo.append(movieInfoPull);
+
     })
   })
 })
@@ -205,7 +206,7 @@ function evaluateInput(event) {
           characterSelection.append(charError);
           return
         }
-      
+        
             for (var i = 0; i < data.data[0].films.length; i++) {
          
 //create element and populate film(s)        
@@ -222,7 +223,7 @@ function evaluateInput(event) {
             targetMovie.setAttribute("href", "#movie-target");
             characterFilm.append(targetMovie);;
             textInput.reset()
-         }
+        }
         })
         textInput.value = '';
 }
@@ -319,6 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function outLier() {
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
+  var characterInput = document.getElementById('search-text');
+  var characterVal = characterInput.value;
   var characterFetch = "https://api.disneyapi.dev/character?name=Mickey%20Mouse" ;
   fetch(characterFetch)
   .then(function (response) {
@@ -373,9 +376,11 @@ function outLier() {
       characterImage.textContent = "";
       characterImage.append(disneyImg);
 
+      characterFilmSection.textContent = "";
 })
 
   }
+  
 
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
