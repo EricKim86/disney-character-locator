@@ -386,6 +386,8 @@ function outLier() {
       characterImage.append(disneyImg);
 
       characterFilmSection.textContent = "";
+
+
     });
 }
 
