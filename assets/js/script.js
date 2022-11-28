@@ -223,6 +223,7 @@ function evaluateInput(event) {
             var characterFilm = document.createElement("button");
             characterFilm.classList.add("button")
             characterFilm.classList.add("is-primary")
+            characterFilm.classList.add("button-target")
             characterFilm.classList.add("button-size-large")
             characterFilm.classList.add("button-color-purple") 
             characterFilm.textContent = data.data[0].films[i]
