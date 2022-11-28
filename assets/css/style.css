@@ -138,6 +138,7 @@ button:focus {
 .character p {
   flex: 0 0 100%;
 }
+
 /* media queries */
 @media screen and (max-width:768px) {
   .search,
@@ -175,10 +176,11 @@ button:focus {
       order: 2;
   }
 }
-    .movie-container {
-        display: flex;
-    }
-} 
+
+  .movie-container {
+      display: flex;
+}
+
 
 @media screen and (max-width:768px) {
     .movie-select {
@@ -202,6 +204,7 @@ button:focus {
       min-height: 20%;
   }
 }
+
 @media screen and (max-width:768px) {
   .hide {
       display: none;

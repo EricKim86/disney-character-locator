@@ -196,7 +196,7 @@ function evaluateInput(event) {
             return response.json();
         })
         .then(function (data) {
-  
+          console.log(data);
 
         if (data.data.length === 0) {
           var charError = document.createElement("p");
@@ -218,6 +218,9 @@ function evaluateInput(event) {
             characterFilm.textContent = data.data[0].films[i]
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
+            var targetMovie = document.createElement("a");
+            targetMovie.setAttribute("href", "#movie-target");
+            characterFilm.append(targetMovie);;
             textInput.reset()
          }
         })
@@ -256,7 +259,7 @@ function characterDisplay() {
 //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title")
-      characterName.textContent = data.data[0].name;
+      characterName.textContent = data.data[1].name;
       characterSelection.append(characterName);
 
 //append character data
