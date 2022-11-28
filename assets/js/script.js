@@ -61,6 +61,10 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
               characterFilm.textContent = data.data[0].films[i]
 //append text to character selection section in index
               characterFilmSection.append(characterFilm);
+
+              characterFilm.addEventListener("click", function(){
+                window.location.href = "#movie-target";
+              });
         }
         characterImage.textContent = "";
         characterSelectionSub.textContent = "";
@@ -114,6 +118,7 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 
         var disneyImg = document.createElement("img");
         disneyImg.setAttribute("src", data.data[0].imageUrl);
+
         characterImage.textContent = "";
         characterImage.append(disneyImg);
 
@@ -196,7 +201,7 @@ function evaluateInput(event) {
             return response.json();
         })
         .then(function (data) {
-  
+          console.log(data);
 
         if (data.data.length === 0) {
           var charError = document.createElement("p");
@@ -219,6 +224,11 @@ function evaluateInput(event) {
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
             textInput.reset()
+
+            characterFilm.addEventListener("click", function(){
+              window.location.href = "#movie-target";
+            });
+
          }
         })
         textInput.value = '';

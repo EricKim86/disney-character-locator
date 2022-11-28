@@ -1,209 +1,251 @@
 body {
-    font-family: 'Mouse Memoirs', sans-serif;
+  font-family: 'Mouse Memoirs', sans-serif;
 }
+
 ul {
-  list-style-type: none;
-  text-align: center;
+list-style-type: none;
+text-align: center;
 }
 
 p,
 li {
-    color: white;
-    font-size: 25px;
+  color: white;
+  font-size: 25px;
 }
 
 .title-text {
-    font-size: 35px !important;
+  font-size: 35px !important;
 }
+
 .character-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+width: 100%;
+height: 100%;
+object-fit: contain;
 }
+
 .modal-text {
-  color: black;
-  font-size: 16px;
-  text-align: center;
+color: black;
+font-size: 16px;
+text-align: center;
 }
+
 .film-stat {
-  font-size: 16px;
+font-size: 16px;
 }
+
 .main-container {
-  display: flex;
-  flex-wrap: wrap;
+display: flex;
+flex-wrap: wrap;
 }
+
 /* style for buttons */
 .button-color-blue {
-  background-color: #31C3E1 !important;
-  width: 90%;
-  margin: 10px 0 !important;
+background-color: #31C3E1 !important;
+width: 90%;
+margin: 10px 0 !important;
 }
+
 .button-color-purple {
-  background-color: #7D82B8 !important;
-  width: 90%;
-  margin: 10px 0 !important;
+background-color: #7D82B8 !important;
+width: 90%;
+margin: 10px 0 !important;
 }
+
 .search {
-    background-color: #7D82B8;
-    padding: 20px !important;
-    height: 100%;
-    min-height: 140vh;
-    width: 18%;
-    text-align: center;
-    border-radius: 4px;
-    margin: 10px 2px 0 2px;
+  background-color: #7D82B8;
+  padding: 20px !important;
+  height: 100%;
+  min-height: 140vh;
+  width: 18%;
+  text-align: center;
+  border-radius: 4px;
+  margin: 10px 2px 0 2px;
 }
+
 .button {
-    margin: 5px;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: normal;
-    text-transform: capitalize;
-    font-family: 'Mouse Memoirs', sans-serif;
-    font-size: 18px;
+  margin: 5px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: normal;
+  text-transform: capitalize;
+  font-family: 'Mouse Memoirs', sans-serif;
+  font-size: 18px;
 }
+
 .button-color {
-  background-color: #31C3E1 !important;
-  width: 20vh;
-  margin: 10px 0 !important;
+background-color: #31C3E1 !important;
+width: 20vh;
+margin: 10px 0 !important;
 }
+
 button:hover {
-  box-shadow: 0 0 6px 6px rgb(192, 190, 190);
+box-shadow: 0 0 6px 6px rgb(192, 190, 190);
 }
+
 button:active {
-  font-size: 105%;
-  box-shadow: 0 0 10px #000 inset;
+font-size: 105%;
+box-shadow: 0 0 10px #000 inset;
 }
+
 button:focus {
-  background-color: #E490A0 !important;
+background-color: #E490A0 !important;
 }
+
 .clear-search {
-  background-color: #E490A0 !important;
+background-color: #E490A0 !important;
 }
+
 /* navigation style */
 .navbar-custom {
-  display: flex;
-  align-items: center;
-  background-color: #31C3E1;
-  height: 60px;
-  width: 100%;
-  padding: 0 0 0 10px;
+display: flex;
+align-items: center;
+background-color: #31C3E1;
+height: 60px;
+width: 100%;
+padding: 0 0 0 10px;
 }
+
 /* character display */
 .character-display {
-  width: 100%;
+width: 100%;
 }
+
 .results-section {
-  width: 80%;
-  padding: 10px !important;
+width: 80%;
+padding: 10px !important;
 }
+
 .notification-custom {
-  background-color: black !important;
-  color: white !important;
+background-color: black !important;
+color: white !important;
 }
+
+.notification {
+  padding: 16px !important;
+}
+
 .character-image {
-    height: 25%;
-    min-height: 25vh;
-    width: 20%;
-    margin-right: 10px;
+  height: 30%;
+  min-height: 30vh;
+  width: 20%;
+  margin-right: 10px;
 }
+
 .character-select {
-    height: 25%;
-    min-height: 25vh;
-    width: 79%;
+  height: 30%;
+  min-height: 30vh;
+  width: 79%;
 }
+
 /* movie selection and information styles */
 .movie-container {
-  width: 100%;
+width: 100%;
 }
+
 .movie-select {
-  background-color: #31C3E1 !important;
-  height: 100%;
-  min-height: 20%;
-  width: 55%;
+background-color: #31C3E1 !important;
+height: 100%;
+min-height: 20%;
+width: 55%;
 }
+
 .movie-info {
-  width: 44%;
-  height: 100%;
-  min-height: 100vh;
-  margin: 0 0 0 10px;
-  background-color: #E490A0 !important;
-  padding: 20px !important;
+width: 44%;
+height: 100%;
+min-height: 100vh;
+margin: 0 0 0 10px;
+background-color: #E490A0 !important;
+padding: 20px !important;
 }
+
 .character li {
-  align-content: right !important;
-  list-style-type: none !important;
+align-content: right !important;
+list-style-type: none !important;
 }
+
 .character p {
-  flex: 0 0 100%;
+flex: 0 0 100%;
 }
+
 /* media queries */
 @media screen and (max-width:768px) {
-  .search,
-  .character-display,
-  .character-image,
-  .character-select,
-  .movie-select,
-  .movie-info {
-      width: 100%;
+.search,
+.character-display,
+.character-image,
+.character-select,
+.movie-select,
+.movie-info {
+    width: 100%;
   }
 }
-@media screen and (max-width:768px) {
-  .character-image {
-      height: 25%;
-      min-height: 20;
-  }
-}
-@media screen and (max-width:768px) {
-    .character-select {
-        height: 15%;
-        min-height: 15;
-    }
-} 
 
 @media screen and (max-width:768px) {
-    .character-select {
-        height: 20%;
-    }
-} 
+.character-image {
+    height: 25%;
+    min-height: 20;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .character-select {
+      height: 15%;
+      min-height: 15;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .character-select {
+      height: 20%;
+  }
+}
+@media screen and (max-width:768px) {
+.movie-select {
+    height: 100%;
+    min-height: 20%;
+    order: 2;
+  }
+}
+
+  .movie-container {
+      display: flex;
+  }
 
 @media screen and (max-width:768px) {
   .movie-select {
       height: 100%;
       min-height: 20%;
-      order: 2;
+      margin-top: 5px;
   }
 }
-    .movie-container {
-        display: flex;
-    }
-} 
 
 @media screen and (max-width:768px) {
-    .movie-select {
-        height: 100%;
-        min-height: 20%;
-        margin-top: 5px;
-    }
-} 
+.movie-info {
+    height: 60%;
+    min-height: 60%;
+    margin: 0px;
+    order: 1;
+  }
+}
 
 @media screen and (max-width:768px) {
-  .movie-info {
-      height: 60%;
-      min-height: 60%;
-      margin: 0px;
-      order: 1;
+.search {
+    height: 20%;
+    min-height: 20%;
   }
 }
+
 @media screen and (max-width:768px) {
-  .search {
-      height: 20%;
-      min-height: 20%;
+.hide {
+    display: none;
   }
 }
-@media screen and (max-width:768px) {
-  .hide {
-      display: none;
-  }
-}
+
+
+
+
+
+
+
+
+
