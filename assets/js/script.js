@@ -12,6 +12,7 @@ var textInput = document.querySelector(".text-input");
 var searchHistoryBtnEl = document.querySelector("#search-history-buttons");
 var characterlist = [];
 var movielist = [];
+
 renderStorage();
 // adding data to local storage
 function saveToStorage(value) {
@@ -30,15 +31,15 @@ function renderStorage() {
   if (searchHistoryArray.length === 0) {
     return;
   }
-  searchHistoryBtnEl.textContent = "";
+      searchHistoryBtnEl.textContent = "";
   for (let i = 0; i < searchHistoryArray.length; i++) {
-    var searchHistoryBtn = document.createElement("button");
-    searchHistoryBtn.classList.add("button");
-    searchHistoryBtn.classList.add("is-primary");
-    searchHistoryBtn.classList.add("button-size-large");
-    searchHistoryBtn.classList.add("button-color-blue");
-    searchHistoryBtn.textContent = searchHistoryArray[i];
-    searchHistoryBtnEl.appendChild(searchHistoryBtn);
+      var searchHistoryBtn = document.createElement("button");
+      searchHistoryBtn.classList.add("button")
+      searchHistoryBtn.classList.add("is-primary")
+      searchHistoryBtn.classList.add("button-size-large")
+      searchHistoryBtn.classList.add("button-color-blue")
+      searchHistoryBtn.textContent = searchHistoryArray[i]
+      searchHistoryBtnEl.appendChild(searchHistoryBtn)
   }
 }
 searchHistoryBtnEl.addEventListener("click", function (event) {
@@ -46,27 +47,30 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
   var searchHistoryFetch =
     "https://api.disneyapi.dev/character?name=" + searchHistoryBtnValue;
   fetch(searchHistoryFetch)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // loop based on # of films for selected character
-      characterFilmSection.textContent = "";
-      for (var i = 0; i < data.data[0].films.length; i++) {
-        //create element and populate film(s)
-        var characterFilm = document.createElement("button");
-        characterFilm.classList.add("button");
-        characterFilm.classList.add("is-primary");
-        characterFilm.classList.add("button-size-large");
-        characterFilm.classList.add("button-color-purple");
-        characterFilm.textContent = data.data[0].films[i];
-        //append text to character selection section in index
-        characterFilmSection.append(characterFilm);
-      }
-      characterImage.textContent = "";
-      characterSelectionSub.textContent = "";
-      movieInfo.textContent = "Movie Info";
-      movieInfo.classList.add("title-text");
+      .then(function (response) {
+          return response.json();
+      })
+      .then(function (data) {
+
+// loop based on # of films for selected character
+              characterFilmSection.textContent = "";
+          for (var i = 0; i < data.data[0].films.length; i++) {
+
+//create element and populate film(s)
+              var characterFilm = document.createElement("button");
+              characterFilm.classList.add("button")
+              characterFilm.classList.add("is-primary")
+              characterFilm.classList.add("button-size-large")
+              characterFilm.classList.add("button-color-purple") 
+              characterFilm.textContent = data.data[0].films[i]
+
+//append text to character selection section in index
+              characterFilmSection.append(characterFilm);
+        }
+        characterImage.textContent = "";
+        characterSelectionSub.textContent = "";
+        movieInfo.textContent = "Movie Info";
+        movieInfo.classList.add("title-text")
 
       for (var i = 0; i < data.data[0].films.length; i++) {
         var numFilms = data.data[0].films[i];
@@ -113,12 +117,15 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
       firstFilmApperance.textContent = "First film apperance: " + firstMovie;
       characterSelectionSub.append(firstFilmApperance);
 
-      var disneyImg = document.createElement("img");
-      disneyImg.setAttribute("src", data.data[0].imageUrl);
-      characterImage.textContent = "";
-      characterImage.append(disneyImg);
-    });
-});
+        var disneyImg = document.createElement("img");
+        disneyImg.setAttribute("src", data.data[0].imageUrl);
+
+        characterImage.textContent = "";
+        characterImage.append(disneyImg);
+
+      })
+}
+);
 
 characterFilmSection.addEventListener("click", function (event) {
   movieInfo.textContent = "";
@@ -181,52 +188,50 @@ function clearSearchHistory() {
   movieInfo.textContent = "Movie Info";
   movieInfo.classList.add("title-text");
 }
+
 function evaluateInput(event) {
-  characterFilmSection.textContent = "";
-  movieInfo.textContent = "Movie Info";
-  movieInfo.classList.add("title-text");
-  event.preventDefault();
-  var characterInput = document.getElementById("search-text");
-  var characterVal = characterInput.value;
-  var characterFetch =
-    "https://api.disneyapi.dev/character?name=" + characterVal;
+    characterFilmSection.textContent = "";
+    movieInfo.textContent = "Movie Info";
+    movieInfo.classList.add("title-text")
+    event.preventDefault()
+    var characterInput = document.getElementById('search-text');
+    var characterVal = characterInput.value;
+    var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    
+    saveToStorage(characterVal);
 
-  saveToStorage(characterVal);
+//fetch disney api
+    fetch(characterFetch)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+  
 
-  //fetch disney api
-  fetch(characterFetch)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
+        if (data.data.length === 0) {
+          var charError = document.createElement("p");
+          charError.classList.add("title")
+          charError.textContent = "Please Enter a Valid Character Name"
+          characterSelection.append(charError);
+          return
+        }
+      
+            for (var i = 0; i < data.data[0].films.length; i++) {
+         
+//create element and populate film(s)        
+            var characterFilm = document.createElement("button");
+            characterFilm.classList.add("button")
+            characterFilm.classList.add("is-primary")
+            characterFilm.classList.add("button-size-large")
+            characterFilm.classList.add("button-color-purple") 
+            characterFilm.textContent = data.data[0].films[i]
 
-      if (data.data.length === 0) {
-        var charError = document.createElement("p");
-        charError.classList.add("title");
-        charError.textContent = "Please Enter a Valid Character Name";
-        characterSelection.append(charError);
-        return;
-      }
-
-      for (var i = 0; i < data.data[0].films.length; i++) {
-        //create element and populate film(s)
-        var characterFilm = document.createElement("button");
-        characterFilm.classList.add("button");
-        characterFilm.classList.add("is-primary");
-        characterFilm.classList.add("button-target");
-        characterFilm.classList.add("button-size-large");
-        characterFilm.classList.add("button-color-purple");
-        characterFilm.textContent = data.data[0].films[i];
-        //append text to character selection section in index
-        characterFilmSection.append(characterFilm);
-        var targetMovie = document.createElement("a");
-        targetMovie.setAttribute("href", "#movie-target");
-        characterFilm.append(targetMovie);
-        textInput.reset();
-      }
-    });
-  textInput.value = "";
+//append text to character selection section in index
+            characterFilmSection.append(characterFilm);
+            textInput.reset()
+         }
+        })
+        textInput.value = '';
 }
 
 //populate character data
@@ -298,7 +303,7 @@ function characterDisplay() {
     });
 }
 // introduction modal with instructions on how to use the app
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   function openModal($el) {
     $el.classList.add("is-active");
   }
@@ -310,16 +315,17 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal($modal);
     });
   }
-  (document.querySelectorAll(".modal") || []).forEach(($close) => {
-    const $target = $close.closest(".modal");
-    $close.addEventListener("click", () => {
-      closeModal($target);
-    });
+(document.querySelectorAll(".modal") || []).forEach(($close) => {
+  const $target = $close.closest('.modal');
+  $close.addEventListener('click', () => {
+    closeModal($target);
   });
+});
+
   document.addEventListener("keydown", (event) => {
     const e = event || window.event;
-    if (e) {
-      // key
+
+    if (e) { // key
       closeAllModals();
     }
   });
