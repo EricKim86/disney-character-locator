@@ -12,9 +12,7 @@ var textInput = document.querySelector('.text-input');
 var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
 var characterlist = [];
 var movielist = [];
-
 renderStorage();
-
 // adding data to local storage
 function saveToStorage(value) {
   var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
@@ -27,26 +25,22 @@ function saveToStorage(value) {
   searchHistoryArray.push(value);
   localStorage.setItem('characters', JSON.stringify(searchHistoryArray))
 }
-
 function renderStorage() {
   var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
   if (searchHistoryArray.length === 0) {
       return
   }
- 
       searchHistoryBtnEl.textContent = "";
   for (let i = 0; i < searchHistoryArray.length; i++) {
-
       var searchHistoryBtn = document.createElement("button");
       searchHistoryBtn.classList.add("button")
       searchHistoryBtn.classList.add("is-primary")
       searchHistoryBtn.classList.add("button-size-large")
-      searchHistoryBtn.classList.add("button-color-blue") 
+      searchHistoryBtn.classList.add("button-color-blue")
       searchHistoryBtn.textContent = searchHistoryArray[i]
       searchHistoryBtnEl.appendChild(searchHistoryBtn)
   }
 }
-
 searchHistoryBtnEl.addEventListener("click", function (event) {
   var searchHistoryBtnValue = (event.target.textContent)
   var searchHistoryFetch = 'https://api.disneyapi.dev/character?name=' + searchHistoryBtnValue;
@@ -55,19 +49,16 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
           return response.json();
       })
       .then(function (data) {
-
 // loop based on # of films for selected character
               characterFilmSection.textContent = "";
           for (var i = 0; i < data.data[0].films.length; i++) {
-
 //create element and populate film(s)
               var characterFilm = document.createElement("button");
               characterFilm.classList.add("button")
               characterFilm.classList.add("is-primary")
               characterFilm.classList.add("button-size-large")
-              characterFilm.classList.add("button-color-purple") 
+              characterFilm.classList.add("button-color-purple")
               characterFilm.textContent = data.data[0].films[i]
-
 //append text to character selection section in index
               characterFilmSection.append(characterFilm);
         }
@@ -188,13 +179,11 @@ function clearSearchHistory() {
   movieInfo.textContent = "Movie Info"
   movieInfo.classList.add("title-text")
 }
-
 function evaluateInput(event) {
     characterFilmSection.textContent = "";
     movieInfo.textContent = "Movie Info";
     movieInfo.classList.add("title-text")
     event.preventDefault()
-
     var characterInput = document.getElementById('search-text');
     var characterVal = characterInput.value;
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
@@ -207,7 +196,7 @@ function evaluateInput(event) {
             return response.json();
         })
         .then(function (data) {
-  
+          console.log(data);
 
         if (data.data.length === 0) {
           var charError = document.createElement("p");
@@ -223,12 +212,15 @@ function evaluateInput(event) {
             var characterFilm = document.createElement("button");
             characterFilm.classList.add("button")
             characterFilm.classList.add("is-primary")
+            characterFilm.classList.add("button-target")
             characterFilm.classList.add("button-size-large")
-            characterFilm.classList.add("button-color-purple") 
+            characterFilm.classList.add("button-color-purple")
             characterFilm.textContent = data.data[0].films[i]
-
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
+            var targetMovie = document.createElement("a");
+            targetMovie.setAttribute("href", "#movie-target");
+            characterFilm.append(targetMovie);;
             textInput.reset()
          }
         })
@@ -251,6 +243,10 @@ function characterDisplay() {
           characterImage.innerHTML = ""
           return
       }
+      if (characterVal == 'Mickey Mouse' || characterVal == 'mickey mouse' || characterVal == 'mickey' || characterVal == 'Mickey') {
+        outLier();
+        return;
+      }
 //looping over to count the number of records
       for (var i = 0; i < data.data[0].films.length; i++) {
           var numFilms = data.data[0].films[i];
@@ -267,7 +263,7 @@ function characterDisplay() {
 //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title")
-      characterName.textContent = data.data[0].name;
+      characterName.textContent = data.data[1].name;
       characterSelection.append(characterName);
 
 //append character data
@@ -293,40 +289,93 @@ function characterDisplay() {
       characterImage.append(disneyImg);
 })
 }
-
 // introduction modal with instructions on how to use the app
 document.addEventListener('DOMContentLoaded', () => {
-    
   function openModal($el) {
     $el.classList.add("is-active");
   }
-
   function closeModal($el) {
     $el.classList.remove("is-active");
   }
-
   function closeAllModals() {
     (document.querySelectorAll(".modal") || []).forEach(($modal) => {
       closeModal($modal);
     });
   }
-
 (document.querySelectorAll(".modal") || []).forEach(($close) => {
   const $target = $close.closest('.modal');
-
   $close.addEventListener('click', () => {
     closeModal($target);
   });
 });
-
   document.addEventListener("keydown", (event) => {
     const e = event || window.event;
-
     if (e) { // key
       closeAllModals();
     }
   });
 });
+
+function outLier() {
+  characterSelectionSub.textContent = "";
+  characterSelection.textContent = "";
+  var characterFetch = "https://api.disneyapi.dev/character?name=Mickey%20Mouse" ;
+  fetch(characterFetch)
+  .then(function (response) {
+      return response.json();
+  })
+  .then(function (data) {
+      if(characterVal == ""){
+          characterImage.innerHTML = ""
+          return;
+      }
+//looping over to count the number of records
+     
+      for (var i = 0; i < data.data[1].films.length; i++) {
+          var numFilms = data.data[1].films[i];
+          console.log(numFilms);
+      }
+      for (var j = 0; j < data.data[1].parkAttractions.length; j++) {
+        var numPark = data.data[1].parkAttractions[j];
+      }
+      for (var k = 0; k < data.data[1].tvShows.length; k++) {
+        var numtv = data.data[1].tvShows[k];
+      }
+      for (var l = 0; l < data.data[1].videoGames.length; l++) {
+        var numVideo = data.data[1].videoGames[l];
+      }
+    
+//apends the character input to the character selection
+      var characterName = document.createElement("p");
+      characterName.classList.add("title")
+      characterName.textContent = data.data[1].name;
+      characterSelection.append(characterName);
+
+//append character data
+      var numFilms = document.createElement("li");
+      numFilms.textContent = "Number of appearances in Movies: " + i;
+      characterSelectionSub.append(numFilms);
+      var numtv = document.createElement("li");
+      numtv.textContent = "Number of appearances in TV Shows: " + k;
+      characterSelectionSub.append(numtv);
+      var numPark = document.createElement("li");
+      numPark.textContent = "Number of appearances in Park Attractions: " + j;
+      characterSelectionSub.append(numPark);
+      var numVideo = document.createElement("li");
+      numVideo.textContent = "Number of appearances in Video Games: " + l;
+      characterSelectionSub.append(numVideo);
+      var firstFilmApperance = document.createElement("li");
+      var firstMovie = data.data[1].films[1]
+      firstFilmApperance.textContent = "First film apperance: "+ firstMovie
+      characterSelectionSub.append(firstFilmApperance);
+      var disneyImg = document.createElement("img");
+      disneyImg.setAttribute("src", data.data[1].imageUrl);
+      characterImage.textContent = "";
+      characterImage.append(disneyImg);
+
+})
+
+  }
 
 textInput.addEventListener('submit', evaluateInput);
 textInput.addEventListener('submit', characterDisplay);
