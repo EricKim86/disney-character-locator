@@ -61,6 +61,10 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
               characterFilm.textContent = data.data[0].films[i]
 //append text to character selection section in index
               characterFilmSection.append(characterFilm);
+
+              characterFilm.addEventListener("click", function(){
+                window.location.href = "#movie-target";
+              });
         }
         characterImage.textContent = "";
         characterSelectionSub.textContent = "";
@@ -114,6 +118,7 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 
         var disneyImg = document.createElement("img");
         disneyImg.setAttribute("src", data.data[0].imageUrl);
+
         characterImage.textContent = "";
         characterImage.append(disneyImg);
 
@@ -218,10 +223,12 @@ function evaluateInput(event) {
             characterFilm.textContent = data.data[0].films[i]
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
-            var targetMovie = document.createElement("a");
-            targetMovie.setAttribute("href", "#movie-target");
-            characterFilm.append(targetMovie);;
             textInput.reset()
+
+            characterFilm.addEventListener("click", function(){
+              window.location.href = "#movie-target";
+            });
+
          }
         })
         textInput.value = '';
@@ -259,7 +266,7 @@ function characterDisplay() {
 //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title")
-      characterName.textContent = data.data[1].name;
+      characterName.textContent = data.data[0].name;
       characterSelection.append(characterName);
 
 //append character data
