@@ -189,16 +189,11 @@ flex: 0 0 100%;
 
 @media screen and (max-width:768px) {
   .character-select {
-      height: 15%;
-      min-height: 15;
+      height: 25%;
+      min-height: 25;
   }
 }
 
-@media screen and (max-width:768px) {
-  .character-select {
-      height: 20%;
-  }
-}
 @media screen and (max-width:768px) {
 .movie-select {
     height: 100%;
