@@ -51,9 +51,13 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
       .then(function (response) {
           return response.json();
       })
-      .then(function (data) {if (
-        searchHistoryBtnValue == "Mickey Mouse" ||
-        searchHistoryBtnValue == "Mickey" 
+      .then(function (data)
+       
+       {
+        console.log(searchHistoryBtnValue);
+        if (
+        searchHistoryBtnValue == "MICKEY MOUSE" ||
+        searchHistoryBtnValue == "MICKEY" 
        
       ) {
         outLier();
@@ -238,6 +242,7 @@ function evaluateInput(event) {
 //append text to character selection section in index
             characterFilmSection.append(characterFilm);
             textInput.reset()
+            
          }
         })
         textInput.value = "";
@@ -344,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function outLier() {
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
+  characterFilmSection.textContent = '';
   var characterInput = document.getElementById("search-text");
   var characterVal = characterInput.value;
   var characterFetch =
@@ -402,6 +408,22 @@ function outLier() {
       characterImage.append(disneyImg);
 
       characterFilmSection.textContent = "";
+
+      for (var i = 0; i < data.data[1].films.length; i++) {
+
+        //create element and populate film(s)
+                      var characterFilm = document.createElement("button");
+                      characterFilm.classList.add("button")
+                      characterFilm.classList.add("is-primary")
+                      characterFilm.classList.add("button-size-large")
+                      characterFilm.classList.add("button-color-purple") 
+                      characterFilm.textContent = data.data[1].films[i]
+        
+        //append text to character selection section in index
+                      characterFilmSection.append(characterFilm);
+                      textInput.reset()
+                      
+                }
     });
 }
 
