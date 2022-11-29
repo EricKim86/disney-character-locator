@@ -1,13 +1,13 @@
 var disneyApi = "https://api.disneyapi.dev/characters";
 var apiKey = "091a5c8f390a977d67ab12f38ec85102";
 var characterFilmSection = document.getElementById("character-films");
-var movieName = document.querySelector(".movie-name");
-var characterSelection = document.querySelector(".character-select");
-var characterSelectionSub = document.querySelector(".character-select");
-var characterImage = document.querySelector(".character-image");
-var clearSearch = document.querySelector(".clear-search");
-var movieInfo = document.querySelector(".movie-info");
-var movieImage = "https://image.tmdb.org/t/p/w500/";
+var movieName = document.querySelector(".movie-name")
+var characterSelection = document.querySelector(".character-select")
+var characterSelectionSub = document.querySelector(".character-select")
+var characterImage = document.querySelector(".character-image")
+var clearSearch = document.querySelector(".clear-search")
+var movieInfo = document.querySelector(".movie-info")
+var movieImage = "https://image.tmdb.org/t/p/w500/"
 var textInput = document.querySelector(".text-input");
 var searchHistoryBtnEl = document.querySelector("#search-history-buttons");
 var characterlist = [];
@@ -203,9 +203,9 @@ function evaluateInput(event) {
     movieInfo.textContent = "Movie Info";
     movieInfo.classList.add("title-text")
     event.preventDefault()
-    var characterInput = document.getElementById('search-text');
-    var characterVal = characterInput.value;
-    var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    var characterInput = document.getElementById("search-text");
+    var characterVal = characterInput.value.toUpperCase();
+    var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
     
     saveToStorage(characterVal);
 
@@ -240,7 +240,7 @@ function evaluateInput(event) {
             textInput.reset()
          }
         })
-        textInput.value = '';
+        textInput.value = "";
 }
 
 //populate character data
@@ -313,7 +313,7 @@ function characterDisplay() {
     });
 }
 // introduction modal with instructions on how to use the app
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   function openModal($el) {
     $el.classList.add("is-active");
   }
@@ -326,8 +326,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 (document.querySelectorAll(".modal") || []).forEach(($close) => {
-  const $target = $close.closest('.modal');
-  $close.addEventListener('click', () => {
+  const $target = $close.closest(".modal");
+  $close.addEventListener("click", () => {
     closeModal($target);
   });
 });
