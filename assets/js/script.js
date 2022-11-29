@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal($modal);
     });
   }
-(document.querySelectorAll(".modal") || []).forEach(($close) => {
+(document.querySelectorAll(".modal") || []).forEach(($close) => {"#movie-target"
   const $target = $close.closest(".modal");
   $close.addEventListener("click", () => {
     closeModal($target);
