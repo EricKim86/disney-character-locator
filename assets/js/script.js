@@ -49,6 +49,7 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
           return response.json();
       })
       .then(function (data) {
+        console.log(searchHistoryBtnValue);
 // loop based on # of films for selected character
               characterFilmSection.textContent = "";
           for (var i = 0; i < data.data[0].films.length; i++) {
@@ -190,7 +191,7 @@ function evaluateInput(event) {
     movieInfo.classList.add("title-text")
     event.preventDefault()
     var characterInput = document.getElementById('search-text');
-    var characterVal = characterInput.value;
+    var characterVal = characterInput.value.toUpperCase();
     var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
     
     saveToStorage(characterVal);
