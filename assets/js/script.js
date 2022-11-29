@@ -31,15 +31,15 @@ function renderStorage() {
   if (searchHistoryArray.length === 0) {
     return;
   }
-      searchHistoryBtnEl.textContent = "";
+  searchHistoryBtnEl.textContent = "";
   for (let i = 0; i < searchHistoryArray.length; i++) {
-      var searchHistoryBtn = document.createElement("button");
-      searchHistoryBtn.classList.add("button")
-      searchHistoryBtn.classList.add("is-primary")
-      searchHistoryBtn.classList.add("button-size-large")
-      searchHistoryBtn.classList.add("button-color-blue")
-      searchHistoryBtn.textContent = searchHistoryArray[i]
-      searchHistoryBtnEl.appendChild(searchHistoryBtn)
+    var searchHistoryBtn = document.createElement("button");
+    searchHistoryBtn.classList.add("button")
+    searchHistoryBtn.classList.add("is-primary")
+    searchHistoryBtn.classList.add("button-size-large")
+    searchHistoryBtn.classList.add("button-color-blue")
+    searchHistoryBtn.textContent = searchHistoryArray[i]
+    searchHistoryBtnEl.appendChild(searchHistoryBtn)
   }
 }
 searchHistoryBtnEl.addEventListener("click", function (event) {
@@ -48,42 +48,42 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
     "https://api.disneyapi.dev/character?name=" + searchHistoryBtnValue;
 
   fetch(searchHistoryFetch)
-      .then(function (response) {
-          return response.json();
-      })
-      .then(function (data)
-       
-       {
-        console.log(searchHistoryBtnValue);
-        if (
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      if (
         searchHistoryBtnValue == "MICKEY MOUSE" ||
-        searchHistoryBtnValue == "MICKEY" 
-       
+        searchHistoryBtnValue == "MICKEY"
+
       ) {
         outLier();
         return;
-      } 
+      }
 
 
-// loop based on # of films for selected character
-              characterFilmSection.textContent = "";
-          for (var i = 0; i < data.data[0].films.length; i++) {
+      // loop based on # of films for selected character
+      characterFilmSection.textContent = "";
+      for (var i = 0; i < data.data[0].films.length; i++) {
 
-//create element and populate film(s)
-              var characterFilm = document.createElement("button");
-              characterFilm.classList.add("button")
-              characterFilm.classList.add("is-primary")
-              characterFilm.classList.add("button-size-large")
-              characterFilm.classList.add("button-color-purple") 
-              characterFilm.textContent = data.data[0].films[i]
+        //create element and populate film(s)
+        var characterFilm = document.createElement("button");
+        characterFilm.classList.add("button")
+        characterFilm.classList.add("is-primary")
+        characterFilm.classList.add("button-size-large")
+        characterFilm.classList.add("button-color-purple")
+        characterFilm.textContent = data.data[0].films[i]
 
-//append text to character selection section in index
-              characterFilmSection.append(characterFilm);
-        }
-        characterImage.textContent = "";
-        characterSelectionSub.textContent = "";
-        movieInfo.textContent = "Movie Info";
-        movieInfo.classList.add("title-text")
+        //append text to character selection section in index
+        characterFilmSection.append(characterFilm);
+        characterFilm.addEventListener("click", function () {
+          window.location.href = "#movie-target";
+        });
+      }
+      characterImage.textContent = "";
+      characterSelectionSub.textContent = "";
+      movieInfo.textContent = "Movie Info";
+      movieInfo.classList.add("title-text")
 
       for (var i = 0; i < data.data[0].films.length; i++) {
         var numFilms = data.data[0].films[i];
@@ -100,13 +100,12 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
       for (var l = 0; l < data.data[0].videoGames.length; l++) {
         var numVideo = data.data[0].videoGames[l];
       }
-      
+
       //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title-text");
       characterName.textContent = data.data[0].name;
       characterSelection.append(characterName);
-      console.log(characterName);
 
       //append character data
       var numFilms = document.createElement("li");
@@ -130,13 +129,13 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
       firstFilmApperance.textContent = "First film apperance: " + firstMovie;
       characterSelectionSub.append(firstFilmApperance);
 
-        var disneyImg = document.createElement("img");
-        disneyImg.setAttribute("src", data.data[0].imageUrl);
+      var disneyImg = document.createElement("img");
+      disneyImg.setAttribute("src", data.data[0].imageUrl);
+      disneyImg.setAttribute("class", "img-style");
+      characterImage.textContent = "";
+      characterImage.append(disneyImg);
 
-        characterImage.textContent = "";
-        characterImage.append(disneyImg);
-
-      })
+    })
 }
 );
 
@@ -203,49 +202,53 @@ function clearSearchHistory() {
 }
 
 function evaluateInput(event) {
-    characterFilmSection.textContent = "";
-    movieInfo.textContent = "Movie Info";
-    movieInfo.classList.add("title-text")
-    event.preventDefault()
-    var characterInput = document.getElementById("search-text");
-    var characterVal = characterInput.value.toUpperCase();
-    var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
-    
-    saveToStorage(characterVal);
+  characterFilmSection.textContent = "";
+  movieInfo.textContent = "Movie Info";
+  movieInfo.classList.add("title-text")
+  event.preventDefault()
+  var characterInput = document.getElementById("search-text");
+  var characterVal = characterInput.value.toUpperCase();
+  var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
 
-//fetch disney api
-    fetch(characterFetch)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-  
+  saveToStorage(characterVal);
 
-        if (data.data.length === 0) {
-          var charError = document.createElement("p");
-          charError.classList.add("title")
-          charError.textContent = "Please Enter a Valid Character Name"
-          characterSelection.append(charError);
-          return
-        }
-      
-            for (var i = 0; i < data.data[0].films.length; i++) {
-         
-//create element and populate film(s)        
-            var characterFilm = document.createElement("button");
-            characterFilm.classList.add("button")
-            characterFilm.classList.add("is-primary")
-            characterFilm.classList.add("button-size-large")
-            characterFilm.classList.add("button-color-purple") 
-            characterFilm.textContent = data.data[0].films[i]
+  //fetch disney api
+  fetch(characterFetch)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
 
-//append text to character selection section in index
-            characterFilmSection.append(characterFilm);
-            textInput.reset()
-            
-         }
-        })
-        textInput.value = "";
+
+      if (data.data.length === 0) {
+        var charError = document.createElement("p");
+        charError.classList.add("title")
+        charError.textContent = "Please Enter a Valid Character Name"
+        characterSelection.append(charError);
+        return
+      }
+
+      for (var i = 0; i < data.data[0].films.length; i++) {
+
+        //create element and populate film(s)        
+        var characterFilm = document.createElement("button");
+        characterFilm.classList.add("button")
+        characterFilm.classList.add("is-primary")
+        characterFilm.classList.add("button-size-large")
+        characterFilm.classList.add("button-color-purple")
+        characterFilm.textContent = data.data[0].films[i]
+
+        //append text to character selection section in index
+        characterFilmSection.append(characterFilm);
+        textInput.reset()
+
+        characterFilm.addEventListener("click", function () {
+          window.location.href = "#movie-target";
+        });
+
+      }
+    })
+  textInput.value = "";
 }
 
 //populate character data
@@ -267,54 +270,54 @@ function characterDisplay() {
       }
       if (
         characterVal == "MICKEY MOUSE" ||
-        characterVal == "MICKEY" 
-       
+        characterVal == "MICKEY"
+
       ) {
         outLier();
         return;
-      } 
+      }
       else {
-      //looping over to count the number of records
-      for (var i = 0; i < data.data[0].films.length; i++) {
-        var numFilms = data.data[0].films[i];
-      }
-      for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
-        var numPark = data.data[0].parkAttractions[j];
-      }
-      for (var k = 0; k < data.data[0].tvShows.length; k++) {
-        var numtv = data.data[0].tvShows[k];
-      }
-      for (var l = 0; l < data.data[0].videoGames.length; l++) {
-        var numVideo = data.data[0].videoGames[l];
-      }
-      //apends the character input to the character selection
-      var characterName = document.createElement("p");
-      characterName.classList.add("title");
-      characterName.textContent = data.data[0].name;
-      characterSelection.append(characterName);
+        //looping over to count the number of records
+        for (var i = 0; i < data.data[0].films.length; i++) {
+          var numFilms = data.data[0].films[i];
+        }
+        for (var j = 0; j < data.data[0].parkAttractions.length; j++) {
+          var numPark = data.data[0].parkAttractions[j];
+        }
+        for (var k = 0; k < data.data[0].tvShows.length; k++) {
+          var numtv = data.data[0].tvShows[k];
+        }
+        for (var l = 0; l < data.data[0].videoGames.length; l++) {
+          var numVideo = data.data[0].videoGames[l];
+        }
+        //apends the character input to the character selection
+        var characterName = document.createElement("p");
+        characterName.classList.add("title");
+        characterName.textContent = data.data[0].name;
+        characterSelection.append(characterName);
 
-      //append character data
-      var numFilms = document.createElement("li");
-      numFilms.textContent = "Number of appearances in Movies: " + i;
-      characterSelectionSub.append(numFilms);
-      var numtv = document.createElement("li");
-      numtv.textContent = "Number of appearances in TV Shows: " + k;
-      characterSelectionSub.append(numtv);
-      var numPark = document.createElement("li");
-      numPark.textContent = "Number of appearances in Park Attractions: " + j;
-      characterSelectionSub.append(numPark);
-      var numVideo = document.createElement("li");
-      numVideo.textContent = "Number of appearances in Video Games: " + l;
-      characterSelectionSub.append(numVideo);
-      var firstFilmApperance = document.createElement("li");
-      var firstMovie = data.data[0].films[0];
-      firstFilmApperance.textContent = "First film apperance: " + firstMovie;
-      characterSelectionSub.append(firstFilmApperance);
-      var disneyImg = document.createElement("img");
-      disneyImg.setAttribute("src", data.data[0].imageUrl);
-      characterImage.textContent = "";
-      characterImage.append(disneyImg);
-    }
+        //append character data
+        var numFilms = document.createElement("li");
+        numFilms.textContent = "Number of appearances in Movies: " + i;
+        characterSelectionSub.append(numFilms);
+        var numtv = document.createElement("li");
+        numtv.textContent = "Number of appearances in TV Shows: " + k;
+        characterSelectionSub.append(numtv);
+        var numPark = document.createElement("li");
+        numPark.textContent = "Number of appearances in Park Attractions: " + j;
+        characterSelectionSub.append(numPark);
+        var numVideo = document.createElement("li");
+        numVideo.textContent = "Number of appearances in Video Games: " + l;
+        characterSelectionSub.append(numVideo);
+        var firstFilmApperance = document.createElement("li");
+        var firstMovie = data.data[0].films[0];
+        firstFilmApperance.textContent = "First film apperance: " + firstMovie;
+        characterSelectionSub.append(firstFilmApperance);
+        var disneyImg = document.createElement("img");
+        disneyImg.setAttribute("src", data.data[0].imageUrl);
+        characterImage.textContent = "";
+        characterImage.append(disneyImg);
+      }
     });
 }
 // introduction modal with instructions on how to use the app
@@ -330,12 +333,13 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal($modal);
     });
   }
-(document.querySelectorAll(".modal") || []).forEach(($close) => {"#movie-target"
-  const $target = $close.closest(".modal");
-  $close.addEventListener("click", () => {
-    closeModal($target);
+  (document.querySelectorAll(".modal") || []).forEach(($close) => {
+    "#movie-target"
+    const $target = $close.closest(".modal");
+    $close.addEventListener("click", () => {
+      closeModal($target);
+    });
   });
-});
 
   document.addEventListener("keydown", (event) => {
     const e = event || window.event;
@@ -347,7 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function outLier() {
-  console.log("hello world");
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
   characterFilmSection.textContent = '';
@@ -364,7 +367,6 @@ function outLier() {
 
       for (var i = 0; i < data.data[1].films.length; i++) {
         var numFilms = data.data[1].films[i];
-        console.log(numFilms);
       }
       for (var j = 0; j < data.data[1].parkAttractions.length; j++) {
         var numPark = data.data[1].parkAttractions[j];
@@ -409,18 +411,21 @@ function outLier() {
       for (var i = 0; i < data.data[1].films.length; i++) {
 
         //create element and populate film(s)
-                      var characterFilm = document.createElement("button");
-                      characterFilm.classList.add("button")
-                      characterFilm.classList.add("is-primary")
-                      characterFilm.classList.add("button-size-large")
-                      characterFilm.classList.add("button-color-purple") 
-                      characterFilm.textContent = data.data[1].films[i]
-        
+        var characterFilm = document.createElement("button");
+        characterFilm.classList.add("button")
+        characterFilm.classList.add("is-primary")
+        characterFilm.classList.add("button-size-large")
+        characterFilm.classList.add("button-color-purple")
+        characterFilm.textContent = data.data[1].films[i]
+
         //append text to character selection section in index
-                      characterFilmSection.append(characterFilm);
-                      textInput.reset()
-                      
-                }
+        characterFilmSection.append(characterFilm);
+        textInput.reset()
+
+        characterFilm.addEventListener("click", function () {
+          window.location.href = "#movie-target";
+        });
+      }
     });
 }
 
