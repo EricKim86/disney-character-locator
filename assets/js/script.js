@@ -52,8 +52,8 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
           return response.json();
       })
       .then(function (data) {if (
-        searchHistoryBtnValue == "MICKEY MOUSE" ||
-        searchHistoryBtnValue == "MICKEY" 
+        searchHistoryBtnValue == "Mickey Mouse" ||
+        searchHistoryBtnValue == "Mickey" 
        
       ) {
         outLier();
