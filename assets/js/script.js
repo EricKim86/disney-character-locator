@@ -1,5 +1,5 @@
-var disneyApi = 'https://api.disneyapi.dev/characters';
-var apiKey = '091a5c8f390a977d67ab12f38ec85102';
+var disneyApi = "https://api.disneyapi.dev/characters";
+var apiKey = "091a5c8f390a977d67ab12f38ec85102";
 var characterFilmSection = document.getElementById("character-films");
 var movieName = document.querySelector(".movie-name")
 var characterSelection = document.querySelector(".character-select")
@@ -8,14 +8,14 @@ var characterImage = document.querySelector(".character-image")
 var clearSearch = document.querySelector(".clear-search")
 var movieInfo = document.querySelector(".movie-info")
 var movieImage = "https://image.tmdb.org/t/p/w500/"
-var textInput = document.querySelector('.text-input');
-var searchHistoryBtnEl = document.querySelector('#search-history-buttons');
+var textInput = document.querySelector(".text-input");
+var searchHistoryBtnEl = document.querySelector("#search-history-buttons");
 var characterlist = [];
 var movielist = [];
 renderStorage();
 // adding data to local storage
 function saveToStorage(value) {
-  var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
+  var searchHistoryArray = JSON.parse(localStorage.getItem("characters")) || []
   if (value == ""){
     return
   }
@@ -23,10 +23,10 @@ function saveToStorage(value) {
       return
   }
   searchHistoryArray.push(value);
-  localStorage.setItem('characters', JSON.stringify(searchHistoryArray))
+  localStorage.setItem("characters", JSON.stringify(searchHistoryArray))
 }
 function renderStorage() {
-  var searchHistoryArray = JSON.parse(localStorage.getItem('characters')) || []
+  var searchHistoryArray = JSON.parse(localStorage.getItem("characters")) || []
   if (searchHistoryArray.length === 0) {
       return
   }
@@ -43,7 +43,7 @@ function renderStorage() {
 }
 searchHistoryBtnEl.addEventListener("click", function (event) {
   var searchHistoryBtnValue = (event.target.textContent)
-  var searchHistoryFetch = 'https://api.disneyapi.dev/character?name=' + searchHistoryBtnValue;
+  var searchHistoryFetch = "https://api.disneyapi.dev/character?name=" + searchHistoryBtnValue;
   fetch(searchHistoryFetch)
       .then(function (response) {
           return response.json();
@@ -96,19 +96,19 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
 
 //append character data 
         var numFilms = document.createElement("li");
-        numFilms.textContent = 'Number of appearances in Movies: ' + i;
+        numFilms.textContent = "Number of appearances in Movies: " + i;
         characterSelectionSub.append(numFilms);
 
         var numtv = document.createElement("li");
-        numtv.textContent = 'Number of appearances in TV Shows: ' + k;
+        numtv.textContent = "Number of appearances in TV Shows: " + k;
         characterSelectionSub.append(numtv);
 
         var numPark = document.createElement("li");
-        numPark.textContent = 'Number of appearances in Park Attractions: ' + j;
+        numPark.textContent = "Number of appearances in Park Attractions: " + j;
         characterSelectionSub.append(numPark);
 
         var numVideo = document.createElement("li");
-        numVideo.textContent = 'Number of appearances in Video Games ' + l;
+        numVideo.textContent = "Number of appearances in Video Games "+ l;
         characterSelectionSub.append(numVideo);
         
         var firstFilmApperance = document.createElement("li");
@@ -189,9 +189,9 @@ function evaluateInput(event) {
     movieInfo.textContent = "Movie Info";
     movieInfo.classList.add("title-text")
     event.preventDefault()
-    var characterInput = document.getElementById('search-text');
-    var characterVal = characterInput.value;
-    var characterFetch = 'https://api.disneyapi.dev/character?name=' + characterVal;
+    var characterInput = document.getElementById("search-text");
+    var characterVal = characterInput.value.toUpperCase();
+    var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
     
     saveToStorage(characterVal);
 
@@ -231,14 +231,14 @@ function evaluateInput(event) {
 
          }
         })
-        textInput.value = '';
+        textInput.value = "";
 }
 
 //populate character data
 function characterDisplay() {
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
-  var characterInput = document.getElementById('search-text');
+  var characterInput = document.getElementById("search-text");
   var characterVal = characterInput.value;
   var characterFetch = "https://api.disneyapi.dev/character?name=" + characterVal;
   fetch(characterFetch)
@@ -293,7 +293,7 @@ function characterDisplay() {
 })
 }
 // introduction modal with instructions on how to use the app
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   function openModal($el) {
     $el.classList.add("is-active");
   }
@@ -306,8 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 (document.querySelectorAll(".modal") || []).forEach(($close) => {
-  const $target = $close.closest('.modal');
-  $close.addEventListener('click', () => {
+  const $target = $close.closest(".modal");
+  $close.addEventListener("click", () => {
     closeModal($target);
   });
 });
@@ -318,8 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-textInput.addEventListener('submit', evaluateInput);
-textInput.addEventListener('submit', characterDisplay);
-textInput.addEventListener('submit', renderStorage);
-clearSearch.addEventListener('click', clearSearchHistory);
-clearSearch.addEventListener('click', clearSearchHistory);
+textInput.addEventListener("submit", evaluateInput);
+textInput.addEventListener("submit", characterDisplay);
+textInput.addEventListener("submit", renderStorage);
+clearSearch.addEventListener("click", clearSearchHistory);
+clearSearch.addEventListener("click", clearSearchHistory);
