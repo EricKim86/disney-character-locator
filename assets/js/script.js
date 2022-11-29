@@ -46,11 +46,20 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
   var searchHistoryBtnValue = event.target.textContent;
   var searchHistoryFetch =
     "https://api.disneyapi.dev/character?name=" + searchHistoryBtnValue;
+
   fetch(searchHistoryFetch)
       .then(function (response) {
           return response.json();
       })
-      .then(function (data) {
+      .then(function (data) {if (
+        searchHistoryBtnValue == "MICKEY MOUSE" ||
+        searchHistoryBtnValue == "MICKEY" 
+       
+      ) {
+        outLier();
+        return;
+      } 
+
 
 // loop based on # of films for selected character
               characterFilmSection.textContent = "";
@@ -87,7 +96,7 @@ searchHistoryBtnEl.addEventListener("click", function (event) {
       for (var l = 0; l < data.data[0].videoGames.length; l++) {
         var numVideo = data.data[0].videoGames[l];
       }
-
+      
       //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title-text");
@@ -258,7 +267,8 @@ function characterDisplay() {
       ) {
         outLier();
         return;
-      }
+      } 
+      else {
       //looping over to count the number of records
       for (var i = 0; i < data.data[0].films.length; i++) {
         var numFilms = data.data[0].films[i];
@@ -275,7 +285,7 @@ function characterDisplay() {
       //apends the character input to the character selection
       var characterName = document.createElement("p");
       characterName.classList.add("title");
-      characterName.textContent = data.data[1].name;
+      characterName.textContent = data.data[0].name;
       characterSelection.append(characterName);
 
       //append character data
@@ -299,6 +309,7 @@ function characterDisplay() {
       disneyImg.setAttribute("src", data.data[0].imageUrl);
       characterImage.textContent = "";
       characterImage.append(disneyImg);
+    }
     });
 }
 // introduction modal with instructions on how to use the app
@@ -391,8 +402,6 @@ function outLier() {
       characterImage.append(disneyImg);
 
       characterFilmSection.textContent = "";
-
-
     });
 }
 
