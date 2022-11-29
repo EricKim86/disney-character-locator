@@ -347,6 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function outLier() {
+  console.log("hello world");
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
   characterFilmSection.textContent = '';
@@ -359,10 +360,6 @@ function outLier() {
       return response.json();
     })
     .then(function (data) {
-      if (characterVal == "") {
-        characterImage.innerHTML = "";
-        return;
-      }
       //looping over to count the number of records
 
       for (var i = 0; i < data.data[1].films.length; i++) {
