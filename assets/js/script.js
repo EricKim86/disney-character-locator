@@ -239,7 +239,7 @@ function characterDisplay() {
   characterSelectionSub.textContent = "";
   characterSelection.textContent = "";
   var characterInput = document.getElementById("search-text");
-  var characterVal = characterInput.value;
+  var characterVal = characterInput.value.toUpperCase();
   var characterFetch =
     "https://api.disneyapi.dev/character?name=" + characterVal;
   fetch(characterFetch)
@@ -252,10 +252,9 @@ function characterDisplay() {
         return;
       }
       if (
-        characterVal == "Mickey Mouse" ||
-        characterVal == "mickey mouse" ||
-        characterVal == "mickey" ||
-        characterVal == "Mickey"
+        characterVal == "MICKEY MOUSE" ||
+        characterVal == "MICKEY" 
+       
       ) {
         outLier();
         return;
